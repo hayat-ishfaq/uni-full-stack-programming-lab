@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Interactive Calculator</h1>
+        </header>
+
+        <div class="calculator">
+            <div class="input-section">
+                <div class="input-group">
+                    <label for="number1">First Number:</label>
+                    <input type="number" id="number1" class="number-input" placeholder="Enter first number" step="any">
+                </div>
+
+                <div class="input-group">
+                    <label for="operation">Operation:</label>
+                    <select id="operation" class="operation-select">
+                        <option value="">-- Select Operation --</option>
+                        <option value="add">+ Addition</option>
+                        <option value="subtract">- Subtraction</option>
+                        <option value="multiply">× Multiplication</option>
+                        <option value="divide">÷ Division</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="number2">Second Number:</label>
+                    <input type="number" id="number2" class="number-input" placeholder="Enter second number" step="any">
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button id="calculate-btn" class="btn calculate-btn">Calculate</button>
+                <button id="clear-btn" class="btn clear-btn">Clear</button>
+            </div>
+
+            <div id="result-container" class="result-container">
+                <h2>Result</h2>
+                <div id="result-display" class="result-display">
+                    <span class="result-text">--</span>
+                </div>
+                <div id="operation-details" class="operation-details"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
