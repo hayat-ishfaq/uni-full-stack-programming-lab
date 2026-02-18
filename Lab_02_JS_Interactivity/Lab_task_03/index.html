@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple To-Do List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>My To-Do List</h1>
+        </header>
+
+        <div class="todo-container">
+            <div class="task-item" id="task1">
+                <input type="text" class="task-input" value="Complete JavaScript Assignment" readonly>
+                <div class="task-buttons">
+                    <button class="btn complete-btn" onclick="toggleComplete(1)">✓ Complete</button>
+                    <button class="btn remove-btn" onclick="removeTask(1)">✗ Remove</button>
+                </div>
+            </div>
+
+            <div class="task-item" id="task2">
+                <input type="text" class="task-input" value="Study for Math Exam" readonly>
+                <div class="task-buttons">
+                    <button class="btn complete-btn" onclick="toggleComplete(2)">✓ Complete</button>
+                    <button class="btn remove-btn" onclick="removeTask(2)">✗ Remove</button>
+                </div>
+            </div>
+
+            <div class="task-item" id="task3">
+                <input type="text" class="task-input" value="Read Chapter 5 of Textbook" readonly>
+                <div class="task-buttons">
+                    <button class="btn complete-btn" onclick="toggleComplete(3)">✓ Complete</button>
+                    <button class="btn remove-btn" onclick="removeTask(3)">✗ Remove</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-container">
+            <p id="stats">Total Tasks: 3 | Completed: 0 | Remaining: 3</p>
+        </div>
+
+        <button class="btn reset-btn" onclick="resetAll()">Reset All Tasks</button>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
