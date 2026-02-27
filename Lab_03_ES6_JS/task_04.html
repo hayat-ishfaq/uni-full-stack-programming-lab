@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Registration System - ES6 Set</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .stats-bar {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .stats-bar h3 {
+            font-size: 2.5rem;
+            margin-bottom: 5px;
+        }
+
+        .stats-bar p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .input-field {
+            flex: 1;
+            padding: 12px 20px;
+            font-size: 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-small {
+            padding: 8px 15px;
+            font-size: 0.9rem;
+        }
+
+        .available-courses {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .course-btn {
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .course-btn:hover {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .course-btn.registered {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+            cursor: not-allowed;
+        }
+
+        .course-btn.registered::after {
+            content: " ✓";
+            font-weight: bold;
+        }
+
+        .registered-courses-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .course-item {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .course-item-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .course-number {
+            background: #667eea;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .course-name {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .btn-remove {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 6px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: background 0.3s ease;
+        }
+
+        .btn-remove:hover {
+            background: #c82333;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: #999;
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 15px;
+        }
+
+        .empty-state-text {
+            font-size: 1.1rem;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            animation: slideInRight 0.3s ease, fadeOut 0.3s ease 2.7s;
+            z-index: 1000;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+
+        .notification.success {
+            background: #28a745;
+        }
+
+        .notification.error {
+            background: #dc3545;
+        }
+
+        .notification.warning {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .set-demo {
+            background: #e8f4f8;
+            border: 2px solid #4a90e2;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .set-demo h3 {
+            color: #2c5282;
+            margin-bottom: 15px;
+        }
+
+        .set-demo-content {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            color: #333;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-left: 4px solid #4a90e2;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 992px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 Unique Course Registration System</h1>
+
+        <div class="main-grid">
+            <!-- Registration Panel -->
+            <div class="section">
+                <h2>Register Courses</h2>
+                
+                <div class="stats-bar">
+                    <h3 id="courseCount">0</h3>
+                    <p>Unique Courses Registered</p>
+                </div>
+
+                <div class="input-group">
+                    <input 
+                        type="text" 
+                        class="input-field" 
+                        id="courseInput" 
+                        placeholder="Enter course name (e.g., Web Development)"
+                        onkeypress="handleKeyPress(event)"
+                    >
+                    <button class="btn" onclick="addCustomCourse()">
+                        ➕ Add Course
+                    </button>
+                </div>
+
+                <h3 style="margin-bottom: 15px; color: #333;">Quick Register:</h3>
+                <div class="available-courses" id="availableCoursesGrid"></div>
+
+                <div class="action-buttons" style="margin-top: 20px;">
+                    <button class="btn btn-small" onclick="addMultipleCourses()">
+                        📦 Add Multiple Courses
+                    </button>
+                    <button class="btn btn-small" onclick="attemptDuplicates()">
+                        🔄 Attempt Duplicates
+                    </button>
+                    <button class="btn btn-small" style="background: #dc3545;" onclick="clearAllCourses()">
+                        🗑️ Clear All
+                    </button>
+                </div>
+            </div>
+
+            <!-- Registered Courses Display -->
+            <div class="section">
+                <h2>Registered Courses</h2>
+                <div id="registeredCoursesContainer">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📋</div>
+                        <div class="empty-state-text">No courses registered yet. Start adding courses!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Set Demonstration -->
+        <div class="section">
+            <h2>ES6 Set Operations</h2>
+            <div class="set-demo">
+                <h3>🔷 Set Methods & Properties</h3>
+                <div class="set-demo-content" id="setDemo">
+Waiting for operations...
+
+ES6 Set prevents duplicate values automatically!
+Try adding the same course twice to see Set in action.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Container -->
+    <div id="notificationContainer"></div>
+
+    <script>
+        // ES6 SET: Create a Set to store registered courses (prevents duplicates)
+        const registeredCourses = new Set();
+
+        // Available courses for quick registration
+        const availableCourses = [
+            'Web Development',
+            'Data Structures',
+            'Database Systems',
+            'Machine Learning',
+            'Mobile App Development',
+            'Cyber Security',
+            'Cloud Computing',
+            'Software Engineering',
+            'Artificial Intelligence',
+            'Computer Networks',
+            'Operating Systems',
+            'Digital Marketing'
+        ];
+
+        // Initialize available courses grid
+        function initializeAvailableCourses() {
+            const grid = document.getElementById('availableCoursesGrid');
+            grid.innerHTML = availableCourses.map(course => `
+                <div class="course-btn" onclick="registerCourse('${course}')" id="btn-${course.replace(/\s+/g, '-')}">
+                    ${course}
+                </div>
+            `).join('');
+        }
+
+        // ADD COURSE TO SET: Main function to register a course
+        function registerCourse(courseName) {
+            if (!courseName || courseName.trim() === '') {
+                showNotification('Please enter a course name!', 'warning');
+                return;
+            }
+
+            courseName = courseName.trim();
+            
+            // Check if course already exists using Set's has() method
+            if (registeredCourses.has(courseName)) {
+                showNotification(`❌ Duplicate detected! "${courseName}" is already registered.`, 'error');
+                updateSetDemo(`duplicate-attempt`, courseName);
+                return;
+            }
+
+            // Add course to Set (automatically prevents duplicates)
+            registeredCourses.add(courseName);
+            
+            showNotification(`✅ Successfully registered: ${courseName}`, 'success');
+            updateSetDemo('add', courseName);
+            updateDisplay();
+            updateAvailableCoursesButtons();
+        }
+
+        // Add custom course from input
+        function addCustomCourse() {
+            const input = document.getElementById('courseInput');
+            const courseName = input.value;
+            
+            registerCourse(courseName);
+            input.value = ''; // Clear input
+        }
+
+        // Handle Enter key press
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                addCustomCourse();
+            }
+        }
+
+        // ATTEMPT ADDING DUPLICATES: Demonstrate Set's duplicate prevention
+        function attemptDuplicates() {
+            if (registeredCourses.size === 0) {
+                showNotification('Add some courses first!', 'warning');
+                return;
+            }
+
+            // Get first course from Set using for...of and attempt to add it again
+            let firstCourse;
+            for (const course of registeredCourses) {
+                firstCourse = course;
+                break; // Get only the first one
+            }
+
+            registerCourse(firstCourse); // This will be blocked as duplicate
+        }
+
+        // ADD MULTIPLE COURSES AT ONCE
+        function addMultipleCourses() {
+            const coursesToAdd = [
+                'Web Development',
+                'Data Structures',
+                'Machine Learning'
+            ];
+
+            let addedCount = 0;
+            let duplicateCount = 0;
+
+            for (const course of coursesToAdd) {
+                const sizeBefore = registeredCourses.size;
+                registeredCourses.add(course);
+                const sizeAfter = registeredCourses.size;
+
+                if (sizeAfter > sizeBefore) {
+                    addedCount++;
+                } else {
+                    duplicateCount++;
+                }
+            }
+
+            showNotification(`Added ${addedCount} courses, ${duplicateCount} duplicates skipped`, 'success');
+            updateSetDemo('multiple', coursesToAdd);
+            updateDisplay();
+            updateAvailableCoursesButtons();
+        }
+
+        // REMOVE COURSE FROM SET
+        function removeCourse(courseName) {
+            registeredCourses.delete(courseName);
+            showNotification(`Removed: ${courseName}`, 'warning');
+            updateSetDemo('delete', courseName);
+            updateDisplay();
+            updateAvailableCoursesButtons();
+        }
+
+        // CLEAR ALL COURSES
+        function clearAllCourses() {
+            if (registeredCourses.size === 0) {
+                showNotification('No courses to clear!', 'warning');
+                return;
+            }
+
+            const count = registeredCourses.size;
+            registeredCourses.clear();
+            showNotification(`Cleared all ${count} courses`, 'warning');
+            updateSetDemo('clear');
+            updateDisplay();
+            updateAvailableCoursesButtons();
+        }
+
+        // UPDATE DISPLAY: Use for...of loop to display all courses
+        function updateDisplay() {
+            const container = document.getElementById('registeredCoursesContainer');
+            const countDisplay = document.getElementById('courseCount');
+
+            // Update count using .size property
+            countDisplay.textContent = registeredCourses.size;
+
+            if (registeredCourses.size === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📋</div>
+                        <div class="empty-state-text">No courses registered yet. Start adding courses!</div>
+                    </div>
+                `;
+                return;
+            }
+
+            // Use for...of loop to iterate through Set
+            let coursesHTML = '';
+            let index = 1;
+            
+            for (const course of registeredCourses) {
+                coursesHTML += `
+                    <div class="course-item">
+                        <div class="course-item-info">
+                            <div class="course-number">${index}</div>
+                            <div class="course-name">${course}</div>
+                        </div>
+                        <button class="btn-remove" onclick="removeCourse('${course}')">
+                            Remove
+                        </button>
+                    </div>
+                `;
+                index++;
+            }
+
+            container.innerHTML = `
+                <div class="registered-courses-list">
+                    ${coursesHTML}
+                </div>
+            `;
+        }
+
+        // Update available courses buttons to show registered status
+        function updateAvailableCoursesButtons() {
+            availableCourses.forEach(course => {
+                const btn = document.getElementById(`btn-${course.replace(/\s+/g, '-')}`);
+                if (btn) {
+                    if (registeredCourses.has(course)) {
+                        btn.classList.add('registered');
+                    } else {
+                        btn.classList.remove('registered');
+                    }
+                }
+            });
+        }
+
+        // UPDATE SET DEMONSTRATION PANEL
+        function updateSetDemo(operation, data = null) {
+            const demoDiv = document.getElementById('setDemo');
+            
+            if (operation === 'add') {
+                demoDiv.innerHTML = `<span class="highlight">Operation: registeredCourses.add("${data}")</span>
+
+✅ Course added successfully!
+
+Current Set state:
+  • Set.size = <span class="highlight">${registeredCourses.size}</span>
+  • Contains "${data}" = <span class="highlight">${registeredCourses.has(data)}</span>
+
+Iterating through Set using <span class="highlight">for...of</span>:
+${Array.from(registeredCourses).map((course, i) => `  ${i + 1}. ${course}`).join('\n')}
+
+💡 Set automatically prevented any duplicates!`;
+            } else if (operation === 'duplicate-attempt') {
+                demoDiv.innerHTML = `<span class="highlight">Operation: registeredCourses.add("${data}")</span>
+
+❌ Duplicate Detected! Course NOT added.
+
+Checking with Set.has():
+  • registeredCourses.has("${data}") = <span class="highlight">true</span>
+
+Set.size remains: <span class="highlight">${registeredCourses.size}</span>
+
+Current courses in Set (using <span class="highlight">for...of</span>):
+${Array.from(registeredCourses).map((course, i) => `  ${i + 1}. ${course}`).join('\n')}
+
+💡 Set rejected the duplicate automatically!`;
+            } else if (operation === 'delete') {
+                demoDiv.innerHTML = `<span class="highlight">Operation: registeredCourses.delete("${data}")</span>
+
+✅ Course removed from Set!
+
+Updated Set state:
+  • Set.size = <span class="highlight">${registeredCourses.size}</span>
+  • Contains "${data}" = <span class="highlight">${registeredCourses.has(data)}</span>
+
+${registeredCourses.size > 0 ? `Remaining courses (using <span class="highlight">for...of</span>):
+${Array.from(registeredCourses).map((course, i) => `  ${i + 1}. ${course}`).join('\n')}` : 'Set is now empty!'}`;
+            } else if (operation === 'clear') {
+                demoDiv.innerHTML = `<span class="highlight">Operation: registeredCourses.clear()</span>
+
+✅ All courses removed from Set!
+
+Set state:
+  • Set.size = <span class="highlight">${registeredCourses.size}</span>
+  • Set is empty = <span class="highlight">${registeredCourses.size === 0}</span>`;
+            } else if (operation === 'multiple') {
+                demoDiv.innerHTML = `<span class="highlight">Operation: Adding multiple courses</span>
+
+Courses attempted: ${data.join(', ')}
+
+Process:
+${data.map((course, i) => {
+    const wasAdded = registeredCourses.has(course);
+    return `  ${i + 1}. "${course}" - ${wasAdded ? '✅ Added/Already exists' : '❌ Not added'}`;
+}).join('\n')}
+
+Final Set.size = <span class="highlight">${registeredCourses.size}</span>
+
+All unique courses (using <span class="highlight">for...of</span>):
+${Array.from(registeredCourses).map((course, i) => `  ${i + 1}. ${course}`).join('\n')}`;
+            }
+        }
+
+        // Show notification
+        function showNotification(message, type) {
+            const container = document.getElementById('notificationContainer');
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            container.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeAvailableCourses();
+            updateDisplay();
+            
+            console.log('📚 Course Registration System initialized');
+            console.log('💡 ES6 Set features demonstrated:');
+            console.log('  • Automatic duplicate prevention');
+            console.log('  • .add() method');
+            console.log('  • .delete() method');
+            console.log('  • .clear() method');
+            console.log('  • .has() method');
+            console.log('  • .size property');
+            console.log('  • for...of iteration');
+        });
+    </script>
+</body>
+</html>
