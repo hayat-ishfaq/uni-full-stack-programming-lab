@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Catalog - ES6 Map</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .stats-bar {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px 15px;
+            font-size: 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 12px 20px;
+            font-size: 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn-search {
+            width: auto;
+            padding: 12px 30px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            border-color: #667eea;
+        }
+
+        .product-card.highlight {
+            border-color: #28a745;
+            border-width: 3px;
+            background: #d4edda;
+            animation: pulse 0.5s ease;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .product-icon {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .product-id {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .product-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .product-detail {
+            color: #666;
+            font-size: 0.95rem;
+            margin: 5px 0;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #28a745;
+            margin: 10px 0;
+        }
+
+        .product-stock {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        .stock-in {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .stock-out {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn-delete {
+            background: #dc3545;
+            flex: 1;
+        }
+
+        .btn-delete:hover {
+            background: #c82333;
+        }
+
+        .btn-view {
+            background: #17a2b8;
+            flex: 1;
+        }
+
+        .btn-view:hover {
+            background: #138496;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: #999;
+        }
+
+        .empty-state-icon {
+            font-size: 5rem;
+            margin-bottom: 15px;
+        }
+
+        .empty-state-text {
+            font-size: 1.2rem;
+        }
+
+        .map-demo {
+            background: #e8f4f8;
+            border: 2px solid #4a90e2;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .map-demo h3 {
+            color: #2c5282;
+            margin-bottom: 15px;
+        }
+
+        .map-demo-content {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            color: #333;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-left: 4px solid #4a90e2;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            animation: slideInRight 0.3s ease, fadeOut 0.3s ease 2.7s;
+            z-index: 1000;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+
+        .notification.success {
+            background: #28a745;
+        }
+
+        .notification.error {
+            background: #dc3545;
+        }
+
+        .notification.info {
+            background: #17a2b8;
+        }
+
+        .notification.warning {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .search-result-banner {
+            background: #d1ecf1;
+            border: 2px solid #0c5460;
+            color: #0c5460;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        @media (max-width: 1200px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-bar {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛍️ Product Catalog Management System</h1>
+
+        <!-- Statistics Bar -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-number" id="totalProducts">0</div>
+                <div class="stat-label">Total Products (Map.size)</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="totalValue">$0</div>
+                <div class="stat-label">Total Inventory Value</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="inStockCount">0</div>
+                <div class="stat-label">In Stock Products</div>
+            </div>
+        </div>
+
+        <div class="main-grid">
+            <!-- Add Product Form -->
+            <div class="section">
+                <h2>Add New Product</h2>
+                
+                <form onsubmit="addProduct(event)">
+                    <div class="form-group">
+                        <label class="form-label">Product ID</label>
+                        <input type="text" class="form-input" id="productId" placeholder="e.g., P001" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Product Name</label>
+                        <input type="text" class="form-input" id="productName" placeholder="e.g., Laptop" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Category</label>
+                        <input type="text" class="form-input" id="productCategory" placeholder="e.g., Electronics" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Price ($)</label>
+                        <input type="number" class="form-input" id="productPrice" placeholder="e.g., 999" step="0.01" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Stock Quantity</label>
+                        <input type="number" class="form-input" id="productStock" placeholder="e.g., 50" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-input form-textarea" id="productDescription" placeholder="Product description..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn">➕ Add Product to Map</button>
+                </form>
+
+                <div style="margin-top: 20px;">
+                    <button class="btn" style="background: #6c757d;" onclick="clearAllProducts()">
+                        🗑️ Clear All Products
+                    </button>
+                </div>
+            </div>
+
+            <!-- Product Display and Search -->
+            <div class="section">
+                <h2>Product Catalog</h2>
+
+                <!-- Search Box -->
+                <div class="search-box">
+                    <input 
+                        type="text" 
+                        class="search-input" 
+                        id="searchInput" 
+                        placeholder="Search by Product ID (e.g., P001)"
+                        onkeypress="handleSearchKeyPress(event)"
+                    >
+                    <button class="btn btn-search" onclick="searchProductById()">
+                        🔍 Search
+                    </button>
+                    <button class="btn btn-search" style="background: #6c757d;" onclick="showAllProducts()">
+                        📋 Show All
+                    </button>
+                </div>
+
+                <div id="searchResultBanner"></div>
+
+                <!-- Products Grid -->
+                <div id="productsContainer">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📦</div>
+                        <div class="empty-state-text">No products in catalog. Add some products to get started!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Map Demonstration -->
+        <div class="section">
+            <h2>ES6 Map Operations</h2>
+            <div class="map-demo">
+                <h3>🗺️ Map Methods & Properties</h3>
+                <div class="map-demo-content" id="mapDemo">
+Waiting for operations...
+
+ES6 Map stores key-value pairs and maintains insertion order!
+Key = Product ID, Value = Product Object
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Container -->
+    <div id="notificationContainer"></div>
+
+    <script>
+        // ES6 MAP: Create a Map to store products (Key = Product ID, Value = Product Object)
+        const productCatalog = new Map();
+
+        // Initialize with sample products (minimum 5 products)
+        function initializeCatalog() {
+            const sampleProducts = [
+                {
+                    id: 'P001',
+                    name: 'MacBook Pro',
+                    category: 'Electronics',
+                    price: 1299.99,
+                    stock: 25,
+                    description: 'High-performance laptop with M2 chip',
+                    icon: '💻'
+                },
+                {
+                    id: 'P002',
+                    name: 'iPhone 15 Pro',
+                    category: 'Electronics',
+                    price: 999.99,
+                    stock: 50,
+                    description: 'Latest smartphone with A17 Pro chip',
+                    icon: '📱'
+                },
+                {
+                    id: 'P003',
+                    name: 'Sony Headphones',
+                    category: 'Audio',
+                    price: 299.99,
+                    stock: 0,
+                    description: 'Noise-cancelling wireless headphones',
+                    icon: '🎧'
+                },
+                {
+                    id: 'P004',
+                    name: 'Samsung 4K Monitor',
+                    category: 'Electronics',
+                    price: 449.99,
+                    stock: 15,
+                    description: '32-inch 4K UHD display',
+                    icon: '🖥️'
+                },
+                {
+                    id: 'P005',
+                    name: 'Logitech Keyboard',
+                    category: 'Accessories',
+                    price: 89.99,
+                    stock: 100,
+                    description: 'Mechanical RGB gaming keyboard',
+                    icon: '⌨️'
+                },
+                {
+                    id: 'P006',
+                    name: 'Apple Watch Series 9',
+                    category: 'Wearables',
+                    price: 399.99,
+                    stock: 30,
+                    description: 'Smart watch with health tracking',
+                    icon: '⌚'
+                },
+                {
+                    id: 'P007',
+                    name: 'iPad Air',
+                    category: 'Electronics',
+                    price: 599.99,
+                    stock: 20,
+                    description: 'Lightweight tablet with M1 chip',
+                    icon: '📱'
+                },
+                {
+                    id: 'P008',
+                    name: 'Canon DSLR Camera',
+                    category: 'Photography',
+                    price: 1499.99,
+                    stock: 10,
+                    description: 'Professional 24MP DSLR camera',
+                    icon: '📷'
+                }
+            ];
+
+            // Add all sample products to Map using .set() method
+            sampleProducts.forEach(product => {
+                productCatalog.set(product.id, product);
+            });
+
+            updateDisplay();
+            updateMapDemo('initialize');
+        }
+
+        // ADD PRODUCT TO MAP
+        function addProduct(event) {
+            event.preventDefault();
+
+            const id = document.getElementById('productId').value.trim();
+            const name = document.getElementById('productName').value.trim();
+            const category = document.getElementById('productCategory').value.trim();
+            const price = parseFloat(document.getElementById('productPrice').value);
+            const stock = parseInt(document.getElementById('productStock').value);
+            const description = document.getElementById('productDescription').value.trim();
+
+            // Check if product ID already exists using Map.has()
+            if (productCatalog.has(id)) {
+                showNotification(`❌ Product ID "${id}" already exists!`, 'error');
+                return;
+            }
+
+            // Create product object
+            const product = {
+                id: id,
+                name: name,
+                category: category,
+                price: price,
+                stock: stock,
+                description: description,
+                icon: getCategoryIcon(category)
+            };
+
+            // Add to Map using .set() method
+            productCatalog.set(id, product);
+
+            showNotification(`✅ Product "${name}" added successfully!`, 'success');
+            updateMapDemo('add', product);
+            updateDisplay();
+
+            // Clear form
+            event.target.reset();
+        }
+
+        // SEARCH PRODUCT BY ID using Map.get()
+        function searchProductById() {
+            const searchId = document.getElementById('searchInput').value.trim();
+
+            if (!searchId) {
+                showNotification('Please enter a Product ID to search', 'warning');
+                return;
+            }
+
+            // Search using Map.get() method
+            const product = productCatalog.get(searchId);
+
+            if (product) {
+                showNotification(`✅ Product found: ${product.name}`, 'success');
+                displaySearchResult(product);
+                updateMapDemo('search-found', product);
+            } else {
+                showNotification(`❌ Product with ID "${searchId}" not found`, 'error');
+                displaySearchNotFound(searchId);
+                updateMapDemo('search-not-found', searchId);
+            }
+        }
+
+        // DELETE PRODUCT using Map.delete()
+        function deleteProduct(productId) {
+            // Get product before deleting (for notification)
+            const product = productCatalog.get(productId);
+
+            if (!product) {
+                showNotification('Product not found', 'error');
+                return;
+            }
+
+            // Delete from Map using .delete() method
+            const deleted = productCatalog.delete(productId);
+
+            if (deleted) {
+                showNotification(`🗑️ Product "${product.name}" deleted successfully!`, 'warning');
+                updateMapDemo('delete', product);
+                updateDisplay();
+            }
+        }
+
+        // CLEAR ALL PRODUCTS using Map.clear()
+        function clearAllProducts() {
+            if (productCatalog.size === 0) {
+                showNotification('No products to clear', 'warning');
+                return;
+            }
+
+            const count = productCatalog.size;
+            productCatalog.clear();
+
+            showNotification(`🗑️ Cleared all ${count} products from catalog`, 'warning');
+            updateMapDemo('clear');
+            updateDisplay();
+        }
+
+        // SHOW ALL PRODUCTS
+        function showAllProducts() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('searchResultBanner').innerHTML = '';
+            updateDisplay();
+        }
+
+        // UPDATE DISPLAY - Show all products from Map
+        function updateDisplay() {
+            const container = document.getElementById('productsContainer');
+            
+            // Update statistics using Map.size
+            updateStatistics();
+
+            if (productCatalog.size === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📦</div>
+                        <div class="empty-state-text">No products in catalog. Add some products to get started!</div>
+                    </div>
+                `;
+                return;
+            }
+
+            // Display all products from Map
+            let productsHTML = '';
+            
+            // Iterate through Map using for...of on Map.entries()
+            for (const [productId, product] of productCatalog) {
+                productsHTML += createProductCard(product);
+            }
+
+            container.innerHTML = `<div class="products-grid">${productsHTML}</div>`;
+        }
+
+        // DISPLAY SEARCH RESULT
+        function displaySearchResult(product) {
+            const container = document.getElementById('productsContainer');
+            const banner = document.getElementById('searchResultBanner');
+
+            banner.innerHTML = `
+                <div class="search-result-banner">
+                    ✅ Search Result: Found product "${product.name}" (ID: ${product.id})
+                </div>
+            `;
+
+            container.innerHTML = `
+                <div class="products-grid">
+                    ${createProductCard(product, true)}
+                </div>
+            `;
+        }
+
+        // DISPLAY SEARCH NOT FOUND
+        function displaySearchNotFound(searchId) {
+            const container = document.getElementById('productsContainer');
+            const banner = document.getElementById('searchResultBanner');
+
+            banner.innerHTML = `
+                <div class="search-result-banner" style="background: #f8d7da; border-color: #721c24; color: #721c24;">
+                    ❌ No product found with ID: ${searchId}
+                </div>
+            `;
+
+            // Show all products
+            updateDisplay();
+        }
+
+        // CREATE PRODUCT CARD HTML
+        function createProductCard(product, highlight = false) {
+            const stockClass = product.stock > 0 ? 'stock-in' : 'stock-out';
+            const stockText = product.stock > 0 ? `In Stock: ${product.stock}` : 'Out of Stock';
+            const highlightClass = highlight ? 'highlight' : '';
+
+            return `
+                <div class="product-card ${highlightClass}">
+                    <div class="product-icon">${product.icon}</div>
+                    <span class="product-id">ID: ${product.id}</span>
+                    <div class="product-name">${product.name}</div>
+                    <div class="product-detail">📂 Category: ${product.category}</div>
+                    <div class="product-price">$${product.price.toFixed(2)}</div>
+                    <span class="product-stock ${stockClass}">${stockText}</span>
+                    <div class="product-detail" style="margin-top: 10px; font-style: italic;">
+                        ${product.description}
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-view" onclick="viewProductDetails('${product.id}')">
+                            👁️ View
+                        </button>
+                        <button class="btn btn-delete" onclick="deleteProduct('${product.id}')">
+                            🗑️ Delete
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // VIEW PRODUCT DETAILS
+        function viewProductDetails(productId) {
+            const product = productCatalog.get(productId);
+            if (product) {
+                updateMapDemo('view', product);
+                showNotification(`Viewing details for: ${product.name}`, 'info');
+            }
+        }
+
+        // UPDATE STATISTICS
+        function updateStatistics() {
+            // Use Map.size property to get total products
+            const totalProducts = productCatalog.size;
+            document.getElementById('totalProducts').textContent = totalProducts;
+
+            let totalValue = 0;
+            let inStockCount = 0;
+
+            // Calculate statistics by iterating through Map
+            for (const [id, product] of productCatalog) {
+                totalValue += product.price * product.stock;
+                if (product.stock > 0) {
+                    inStockCount++;
+                }
+            }
+
+            document.getElementById('totalValue').textContent = `$${totalValue.toFixed(2)}`;
+            document.getElementById('inStockCount').textContent = inStockCount;
+        }
+
+        // UPDATE MAP DEMONSTRATION PANEL
+        function updateMapDemo(operation, data = null) {
+            const demoDiv = document.getElementById('mapDemo');
+
+            if (operation === 'initialize') {
+                demoDiv.innerHTML = `<span class="highlight">Operation: Initialize catalog with products</span>
+
+Products added to Map using <span class="highlight">.set(key, value)</span>
+
+Map State:
+  • Map.size = <span class="highlight">${productCatalog.size}</span>
+  • Total products loaded: ${productCatalog.size}
+
+Iterating through Map using <span class="highlight">for...of with Map.entries()</span>:
+${Array.from(productCatalog.entries()).map(([id, product], i) => 
+    `  ${i + 1}. Key: "${id}" → Value: ${product.name} ($${product.price})`
+).join('\n')}`;
+            } else if (operation === 'add') {
+                demoDiv.innerHTML = `<span class="highlight">Operation: productCatalog.set("${data.id}", productObject)</span>
+
+✅ Product added to Map!
+
+Product Details:
+  • ID (Key): <span class="highlight">${data.id}</span>
+  • Name: ${data.name}
+  • Price: $${data.price}
+  • Stock: ${data.stock}
+
+Map State:
+  • Map.size = <span class="highlight">${productCatalog.size}</span>
+  • Map.has("${data.id}") = <span class="highlight">${productCatalog.has(data.id)}</span>
+
+All products in Map:
+${Array.from(productCatalog.keys()).map((id, i) => `  ${i + 1}. ${id}`).join('\n')}`;
+            } else if (operation === 'search-found') {
+                demoDiv.innerHTML = `<span class="highlight">Operation: productCatalog.get("${data.id}")</span>
+
+✅ Product Found!
+
+Retrieved Product:
+  • ID: ${data.id}
+  • Name: <span class="highlight">${data.name}</span>
+  • Category: ${data.category}
+  • Price: $${data.price}
+  • Stock: ${data.stock}
+
+Map Methods Used:
+  • <span class="highlight">Map.get(key)</span> - Returns value for the key
+  • Map.has("${data.id}") = ${productCatalog.has(data.id)}
+
+Current Map.size = <span class="highlight">${productCatalog.size}</span>`;
+            } else if (operation === 'search-not-found') {
+                demoDiv.innerHTML = `<span class="highlight">Operation: productCatalog.get("${data}")</span>
+
+❌ Product Not Found!
+
+Search Details:
+  • Searched for ID: <span class="highlight">${data}</span>
+  • Map.get("${data}") = undefined
+  • Map.has("${data}") = <span class="highlight">false</span>
+
+Available Product IDs in Map:
+${Array.from(productCatalog.keys()).map((id, i) => `  ${i + 1}. ${id}`).join('\n') || '  (none)'}
+
+Current Map.size = <span class="highlight">${productCatalog.size}</span>`;
+            } else if (operation === 'delete') {
+                demoDiv.innerHTML = `<span class="highlight">Operation: productCatalog.delete("${data.id}")</span>
+
+✅ Product Deleted from Map!
+
+Deleted Product:
+  • ID: ${data.id}
+  • Name: <span class="highlight">${data.name}</span>
+  • Was in Map: true → Now: <span class="highlight">${productCatalog.has(data.id)}</span>
+
+Map State After Deletion:
+  • Map.size = <span class="highlight">${productCatalog.size}</span>
+  • Map.has("${data.id}") = ${productCatalog.has(data.id)}
+
+Remaining products:
+${Array.from(productCatalog.keys()).map((id, i) => `  ${i + 1}. ${id}`).join('\n') || '  (none)'}`;
+            } else if (operation === 'clear') {
+                demoDiv.innerHTML = `<span class="highlight">Operation: productCatalog.clear()</span>
+
+✅ All products removed from Map!
+
+Map State:
+  • Map.size = <span class="highlight">${productCatalog.size}</span>
+  • Map is empty = ${productCatalog.size === 0}
+
+💡 Map.clear() removes ALL key-value pairs!`;
+            } else if (operation === 'view') {
+                demoDiv.innerHTML = `<span class="highlight">Operation: View Product Details</span>
+
+Product Retrieved using <span class="highlight">Map.get("${data.id}")</span>:
+
+${data.icon} <span class="highlight">${data.name}</span>
+━━━━━━━━━━━━━━━━━━━━━
+  • Product ID: ${data.id}
+  • Category: ${data.category}
+  • Price: $${data.price}
+  • Stock: ${data.stock} units
+  • Description: ${data.description}
+
+Map Methods:
+  • Map.get(key) - Retrieves value
+  • Map.has(key) - Checks existence
+  • Map.size - Returns count
+  
+Current Map.size = <span class="highlight">${productCatalog.size}</span>`;
+            }
+        }
+
+        // HELPER FUNCTIONS
+        function getCategoryIcon(category) {
+            const icons = {
+                'Electronics': '💻',
+                'Audio': '🎧',
+                'Accessories': '⌨️',
+                'Wearables': '⌚',
+                'Photography': '📷',
+                'Gaming': '🎮'
+            };
+            return icons[category] || '📦';
+        }
+
+        function handleSearchKeyPress(event) {
+            if (event.key === 'Enter') {
+                searchProductById();
+            }
+        }
+
+        function showNotification(message, type) {
+            const container = document.getElementById('notificationContainer');
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            container.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeCatalog();
+            
+            console.log('🛍️ Product Catalog System initialized');
+            console.log('💡 ES6 Map features demonstrated:');
+            console.log('  • Map.set(key, value) - Add products');
+            console.log('  • Map.get(key) - Search products');
+            console.log('  • Map.has(key) - Check existence');
+            console.log('  • Map.delete(key) - Remove products');
+            console.log('  • Map.clear() - Remove all');
+            console.log('  • Map.size - Count products');
+            console.log('  • for...of Map.entries() - Iterate');
+            console.log(`📊 Initial products loaded: ${productCatalog.size}`);
+        });
+    </script>
+</body>
+</html>
