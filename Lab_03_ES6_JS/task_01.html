@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System - ES6 Classes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .students-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            padding: 20px 0;
+        }
+
+        .student-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .student-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .student-header {
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+        .student-id {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .student-name {
+            color: #333;
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .student-semester {
+            color: #666;
+            font-size: 1.1rem;
+            font-style: italic;
+        }
+
+        .courses-section {
+            margin-top: 15px;
+        }
+
+        .courses-title {
+            color: #333;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .courses-title::before {
+            content: "📚";
+            margin-right: 8px;
+        }
+
+        .courses-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .course-item {
+            background: #f5f5f5;
+            padding: 10px 15px;
+            margin: 5px 0;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            transition: background 0.2s ease;
+        }
+
+        .course-item:hover {
+            background: #e8e8f7;
+        }
+
+        .stats {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .stats h2 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .stats p {
+            color: #666;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .students-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .student-name {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎓 Student Management System</h1>
+        
+        <div class="stats" id="stats"></div>
+        
+        <div class="students-grid" id="studentsContainer"></div>
+    </div>
+
+    <script>
+        // ES6 Class for Student
+        class Student {
+            constructor(id, name, semester, courses) {
+                this.id = id;
+                this.name = name;
+                this.semester = semester;
+                this.courses = courses;
+            }
+
+            // Method to get student details as HTML using template literals
+            getStudentCardHTML() {
+                const coursesHTML = this.courses.map(course => 
+                    `<li class="course-item">${course}</li>`
+                ).join('');
+
+                return `
+                    <div class="student-card">
+                        <div class="student-header">
+                            <span class="student-id">ID: ${this.id}</span>
+                            <h2 class="student-name">${this.name}</h2>
+                            <p class="student-semester">${this.semester}</p>
+                        </div>
+                        <div class="courses-section">
+                            <div class="courses-title">Enrolled Courses</div>
+                            <ul class="courses-list">
+                                ${coursesHTML}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Method to get total number of courses
+            getTotalCourses() {
+                return this.courses.length;
+            }
+        }
+
+        // Creating student objects using let and const
+        const student1 = new Student(
+            'STU001',
+            'Ali Ahmed',
+            '5th Semester - Fall 2025',
+            ['Web Development', 'Database Systems', 'Software Engineering', 'Data Structures']
+        );
+
+        const student2 = new Student(
+            'STU002',
+            'Sara Khan',
+            '3rd Semester - Fall 2025',
+            ['Object Oriented Programming', 'Digital Logic Design', 'Discrete Mathematics']
+        );
+
+        const student3 = new Student(
+            'STU003',
+            'Hassan Ali',
+            '7th Semester - Fall 2025',
+            ['Artificial Intelligence', 'Machine Learning', 'Computer Networks', 'Cloud Computing', 'Cyber Security']
+        );
+
+        const student4 = new Student(
+            'STU004',
+            'Fatima Malik',
+            '4th Semester - Fall 2025',
+            ['Data Structures & Algorithms', 'Computer Architecture', 'Operating Systems']
+        );
+
+        // Store all students in an array using const
+        const students = [student1, student2, student3, student4];
+
+        // Function to display all students dynamically
+        function displayStudents() {
+            const container = document.getElementById('studentsContainer');
+            
+            // Using template literals and innerHTML to display all students
+            let studentsHTML = '';
+            
+            for (let i = 0; i < students.length; i++) {
+                studentsHTML += students[i].getStudentCardHTML();
+            }
+            
+            container.innerHTML = studentsHTML;
+        }
+
+        // Function to display statistics
+        function displayStats() {
+            const statsContainer = document.getElementById('stats');
+            const totalStudents = students.length;
+            
+            let totalCourses = 0;
+            for (const student of students) {
+                totalCourses += student.getTotalCourses();
+            }
+            
+            statsContainer.innerHTML = `
+                <h2>System Statistics</h2>
+                <p><strong>Total Students:</strong> ${totalStudents} | <strong>Total Course Enrollments:</strong> ${totalCourses}</p>
+            `;
+        }
+
+        // Display students and stats when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            displayStudents();
+            displayStats();
+        });
+    </script>
+</body>
+</html>
