@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asynchronous Data Loader - Promises</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .control-panel {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .control-panel h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .toggle-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .toggle-label {
+            font-size: 1.1rem;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 80px;
+            height: 40px;
+            background: #ccc;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .toggle-switch.active {
+            background: #28a745;
+        }
+
+        .toggle-switch.inactive {
+            background: #dc3545;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            width: 30px;
+            height: 30px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .toggle-switch.active .toggle-slider {
+            transform: translateX(40px);
+        }
+
+        .toggle-text {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .toggle-text.success {
+            left: 8px;
+        }
+
+        .toggle-text.fail {
+            right: 8px;
+        }
+
+        .btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            margin: 10px;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .results-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            min-height: 300px;
+        }
+
+        .results-section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        /* Loading Spinner */
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 50px;
+        }
+
+        .spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #667eea;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            margin-top: 20px;
+            color: #667eea;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .loading-timer {
+            margin-top: 10px;
+            color: #999;
+            font-size: 1rem;
+        }
+
+        /* User Cards */
+        .users-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .user-card {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .user-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-color: #667eea;
+        }
+
+        .user-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 15px;
+        }
+
+        .user-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .user-info {
+            color: #666;
+            font-size: 0.95rem;
+            margin: 5px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .user-info::before {
+            content: "•";
+            color: #667eea;
+            font-size: 1.5rem;
+        }
+
+        /* Error Message */
+        .error-container {
+            text-align: center;
+            padding: 50px;
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .error-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+        }
+
+        .error-title {
+            color: #dc3545;
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .error-message {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        /* Idle State */
+        .idle-container {
+            text-align: center;
+            padding: 50px;
+            color: #999;
+        }
+
+        .idle-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+        }
+
+        .idle-text {
+            font-size: 1.2rem;
+        }
+
+        /* Promise Demo Section */
+        .promise-demo {
+            background: #e8f4f8;
+            border: 2px solid #4a90e2;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 25px;
+        }
+
+        .promise-demo h3 {
+            color: #2c5282;
+            margin-bottom: 15px;
+        }
+
+        .promise-code {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            color: #333;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-left: 4px solid #4a90e2;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .users-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .toggle-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚡ Asynchronous Data Loader</h1>
+
+        <!-- Control Panel -->
+        <div class="control-panel">
+            <h2>Promise Configuration</h2>
+            
+            <div class="toggle-group">
+                <span class="toggle-label">Simulate API Response:</span>
+                <div class="toggle-switch active" id="successToggle" onclick="toggleSuccess()">
+                    <div class="toggle-slider"></div>
+                    <span class="toggle-text success">SUCCESS</span>
+                    <span class="toggle-text fail">FAIL</span>
+                </div>
+            </div>
+
+            <div style="margin: 20px 0;">
+                <button class="btn" id="loadBtn" onclick="loadUsers()">
+                    🚀 Load Users (3s delay)
+                </button>
+            </div>
+
+            <p style="color: #666; font-size: 0.95rem;">
+                Toggle success/fail mode, then click to fetch data using Promises
+            </p>
+        </div>
+
+        <!-- Results Section -->
+        <div class="results-section">
+            <h2>Data Results</h2>
+            <div id="resultsContainer">
+                <div class="idle-container">
+                    <div class="idle-icon">📊</div>
+                    <div class="idle-text">Click "Load Users" to fetch data asynchronously</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Promise Demonstration -->
+        <div class="promise-demo">
+            <h3>🔷 Promise Implementation Details</h3>
+            <div class="promise-code" id="promiseDemo">Waiting for action...</div>
+        </div>
+    </div>
+
+    <script>
+        // Boolean flag to control success/failure
+        let shouldSucceed = true;
+
+        // Array of user objects (server data simulation)
+        const usersData = [
+            {
+                id: 1,
+                name: 'Ahmed Khan',
+                email: 'ahmed.khan@example.com',
+                role: 'Software Engineer',
+                department: 'Engineering',
+                avatar: '👨‍💻'
+            },
+            {
+                id: 2,
+                name: 'Sara Malik',
+                email: 'sara.malik@example.com',
+                role: 'Product Manager',
+                department: 'Product',
+                avatar: '👩‍💼'
+            },
+            {
+                id: 3,
+                name: 'Ali Hassan',
+                email: 'ali.hassan@example.com',
+                role: 'UX Designer',
+                department: 'Design',
+                avatar: '🎨'
+            },
+            {
+                id: 4,
+                name: 'Fatima Noor',
+                email: 'fatima.noor@example.com',
+                role: 'Data Scientist',
+                department: 'Analytics',
+                avatar: '📊'
+            },
+            {
+                id: 5,
+                name: 'Usman Tariq',
+                email: 'usman.tariq@example.com',
+                role: 'DevOps Engineer',
+                department: 'Engineering',
+                avatar: '⚙️'
+            },
+            {
+                id: 6,
+                name: 'Ayesha Rizwan',
+                email: 'ayesha.rizwan@example.com',
+                role: 'Marketing Manager',
+                department: 'Marketing',
+                avatar: '📱'
+            }
+        ];
+
+        // PROMISE FUNCTION: Simulates fetching users from server
+        function fetchUsers() {
+            return new Promise((resolve, reject) => {
+                console.log('🔄 Promise created - Starting async operation...');
+                
+                // Display loading state
+                showLoading();
+                
+                // Simulate server delay with setTimeout (3 seconds)
+                setTimeout(() => {
+                    // Check boolean flag to determine success or failure
+                    if (shouldSucceed) {
+                        console.log('✅ Promise resolved - Data fetched successfully!');
+                        resolve(usersData); // Resolve with user data
+                    } else {
+                        console.log('❌ Promise rejected - Failed to fetch data!');
+                        reject(new Error('Failed to fetch users from server. Please try again later.')); // Reject with error
+                    }
+                }, 3000); // 3 second delay
+            });
+        }
+
+        // Function to load users using Promise with .then() and .catch()
+        function loadUsers() {
+            const loadBtn = document.getElementById('loadBtn');
+            loadBtn.disabled = true;
+            
+            // Update promise demo
+            updatePromiseDemo('pending');
+            
+            // Call fetchUsers() and handle with .then() and .catch()
+            fetchUsers()
+                .then((users) => {
+                    // SUCCESS: Handle resolved promise
+                    console.log('📥 .then() called - Received users:', users);
+                    displayUsers(users);
+                    updatePromiseDemo('resolved', users);
+                    loadBtn.disabled = false;
+                })
+                .catch((error) => {
+                    // ERROR: Handle rejected promise
+                    console.error('⚠️ .catch() called - Error:', error.message);
+                    displayError(error);
+                    updatePromiseDemo('rejected', error);
+                    loadBtn.disabled = false;
+                });
+        }
+
+        // Show loading spinner
+        function showLoading() {
+            const container = document.getElementById('resultsContainer');
+            let seconds = 0;
+            
+            container.innerHTML = `
+                <div class="loading-container">
+                    <div class="spinner"></div>
+                    <div class="loading-text">Loading users from server...</div>
+                    <div class="loading-timer" id="timer">Elapsed: ${seconds}s / 3s</div>
+                </div>
+            `;
+            
+            // Update timer every second
+            const timerInterval = setInterval(() => {
+                seconds++;
+                const timerElement = document.getElementById('timer');
+                if (timerElement) {
+                    timerElement.textContent = `Elapsed: ${seconds}s / 3s`;
+                }
+                if (seconds >= 3) {
+                    clearInterval(timerInterval);
+                }
+            }, 1000);
+        }
+
+        // Display users in HTML
+        function displayUsers(users) {
+            const container = document.getElementById('resultsContainer');
+            
+            const usersHTML = users.map(user => `
+                <div class="user-card">
+                    <div class="user-avatar">${user.avatar}</div>
+                    <div class="user-name">${user.name}</div>
+                    <div class="user-info">Email: ${user.email}</div>
+                    <div class="user-info">Role: ${user.role}</div>
+                    <div class="user-info">Department: ${user.department}</div>
+                    <div class="user-info">ID: #${user.id}</div>
+                </div>
+            `).join('');
+            
+            container.innerHTML = `
+                <div style="text-align: center; margin-bottom: 20px; color: #28a745; font-weight: bold; font-size: 1.2rem;">
+                    ✅ Successfully loaded ${users.length} users!
+                </div>
+                <div class="users-grid">
+                    ${usersHTML}
+                </div>
+            `;
+        }
+
+        // Display error message
+        function displayError(error) {
+            const container = document.getElementById('resultsContainer');
+            
+            container.innerHTML = `
+                <div class="error-container">
+                    <div class="error-icon">❌</div>
+                    <div class="error-title">Failed to Load Data</div>
+                    <div class="error-message">${error.message}</div>
+                    <button class="btn" onclick="loadUsers()">🔄 Try Again</button>
+                </div>
+            `;
+        }
+
+        // Toggle success/fail mode
+        function toggleSuccess() {
+            shouldSucceed = !shouldSucceed;
+            const toggle = document.getElementById('successToggle');
+            
+            if (shouldSucceed) {
+                toggle.classList.add('active');
+                toggle.classList.remove('inactive');
+            } else {
+                toggle.classList.remove('active');
+                toggle.classList.add('inactive');
+            }
+        }
+
+        // Update promise demonstration panel
+        function updatePromiseDemo(state, data = null) {
+            const demoDiv = document.getElementById('promiseDemo');
+            
+            if (state === 'pending') {
+                demoDiv.innerHTML = `<span class="highlight">State: PENDING</span>
+
+1. fetchUsers() function called
+2. New Promise created
+3. setTimeout() started with 3-second delay
+4. Waiting for async operation to complete...
+
+Code executing:
+  fetchUsers()
+    .then((users) => { /* success handler */ })
+    .catch((error) => { /* error handler */ })`;
+            } else if (state === 'resolved') {
+                demoDiv.innerHTML = `<span class="highlight">State: RESOLVED ✅</span>
+
+1. setTimeout() completed after 3 seconds
+2. shouldSucceed flag was: <span class="highlight">true</span>
+3. Promise resolved with user data
+4. <span class="highlight">.then()</span> handler executed
+5. Received ${data.length} users from promise
+
+Result: Data displayed successfully in UI`;
+            } else if (state === 'rejected') {
+                demoDiv.innerHTML = `<span class="highlight">State: REJECTED ❌</span>
+
+1. setTimeout() completed after 3 seconds
+2. shouldSucceed flag was: <span class="highlight">false</span>
+3. Promise rejected with error
+4. <span class="highlight">.catch()</span> handler executed
+5. Error message: "${data.message}"
+
+Result: Error displayed to user`;
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('💡 Asynchronous Data Loader initialized');
+            console.log('📖 This demo shows:');
+            console.log('  • Promise creation and handling');
+            console.log('  • setTimeout() for async simulation');
+            console.log('  • .then() for success handling');
+            console.log('  • .catch() for error handling');
+            console.log('  • Boolean flag to control resolve/reject');
+        });
+    </script>
+</body>
+</html>
