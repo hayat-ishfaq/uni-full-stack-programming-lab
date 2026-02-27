@@ -388,20 +388,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Set Demonstration -->
-        <div class="section">
-            <h2>ES6 Set Operations</h2>
-            <div class="set-demo">
-                <h3>🔷 Set Methods & Properties</h3>
-                <div class="set-demo-content" id="setDemo">
-Waiting for operations...
-
-ES6 Set prevents duplicate values automatically!
-Try adding the same course twice to see Set in action.
-                </div>
-            </div>
-        </div>
     </div>
 
     <!-- Notification Container -->
@@ -449,7 +435,6 @@ Try adding the same course twice to see Set in action.
             // Check if course already exists using Set's has() method
             if (registeredCourses.has(courseName)) {
                 showNotification(`❌ Duplicate detected! "${courseName}" is already registered.`, 'error');
-                updateSetDemo(`duplicate-attempt`, courseName);
                 return;
             }
 
@@ -457,7 +442,6 @@ Try adding the same course twice to see Set in action.
             registeredCourses.add(courseName);
             
             showNotification(`✅ Successfully registered: ${courseName}`, 'success');
-            updateSetDemo('add', courseName);
             updateDisplay();
             updateAvailableCoursesButtons();
         }
@@ -519,7 +503,6 @@ Try adding the same course twice to see Set in action.
             }
 
             showNotification(`Added ${addedCount} courses, ${duplicateCount} duplicates skipped`, 'success');
-            updateSetDemo('multiple', coursesToAdd);
             updateDisplay();
             updateAvailableCoursesButtons();
         }
@@ -528,7 +511,6 @@ Try adding the same course twice to see Set in action.
         function removeCourse(courseName) {
             registeredCourses.delete(courseName);
             showNotification(`Removed: ${courseName}`, 'warning');
-            updateSetDemo('delete', courseName);
             updateDisplay();
             updateAvailableCoursesButtons();
         }
@@ -543,7 +525,6 @@ Try adding the same course twice to see Set in action.
             const count = registeredCourses.size;
             registeredCourses.clear();
             showNotification(`Cleared all ${count} courses`, 'warning');
-            updateSetDemo('clear');
             updateDisplay();
             updateAvailableCoursesButtons();
         }
@@ -606,73 +587,7 @@ Try adding the same course twice to see Set in action.
             });
         }
 
-        // UPDATE SET DEMONSTRATION PANEL
-        function updateSetDemo(operation, data = null) {
-            const demoDiv = document.getElementById('setDemo');
-            
-            if (operation === 'add') {
-                demoDiv.innerHTML = `<span class="highlight">Operation: registeredCourses.add("${data}")</span>
 
-✅ Course added successfully!
-
-Current Set state:
-  • Set.size = <span class="highlight">${registeredCourses.size}</span>
-  • Contains "${data}" = <span class="highlight">${registeredCourses.has(data)}</span>
-
-Iterating through Set using <span class="highlight">for...of</span>:
-${Array.from(registeredCourses).map((course, i) => `  ${i + 1}. ${course}`).join('\n')}
-
-💡 Set automatically prevented any duplicates!`;
-            } else if (operation === 'duplicate-attempt') {
-                demoDiv.innerHTML = `<span class="highlight">Operation: registeredCourses.add("${data}")</span>
-
-❌ Duplicate Detected! Course NOT added.
-
-Checking with Set.has():
-  • registeredCourses.has("${data}") = <span class="highlight">true</span>
-
-Set.size remains: <span class="highlight">${registeredCourses.size}</span>
-
-Current courses in Set (using <span class="highlight">for...of</span>):
-${Array.from(registeredCourses).map((course, i) => `  ${i + 1}. ${course}`).join('\n')}
-
-💡 Set rejected the duplicate automatically!`;
-            } else if (operation === 'delete') {
-                demoDiv.innerHTML = `<span class="highlight">Operation: registeredCourses.delete("${data}")</span>
-
-✅ Course removed from Set!
-
-Updated Set state:
-  • Set.size = <span class="highlight">${registeredCourses.size}</span>
-  • Contains "${data}" = <span class="highlight">${registeredCourses.has(data)}</span>
-
-${registeredCourses.size > 0 ? `Remaining courses (using <span class="highlight">for...of</span>):
-${Array.from(registeredCourses).map((course, i) => `  ${i + 1}. ${course}`).join('\n')}` : 'Set is now empty!'}`;
-            } else if (operation === 'clear') {
-                demoDiv.innerHTML = `<span class="highlight">Operation: registeredCourses.clear()</span>
-
-✅ All courses removed from Set!
-
-Set state:
-  • Set.size = <span class="highlight">${registeredCourses.size}</span>
-  • Set is empty = <span class="highlight">${registeredCourses.size === 0}</span>`;
-            } else if (operation === 'multiple') {
-                demoDiv.innerHTML = `<span class="highlight">Operation: Adding multiple courses</span>
-
-Courses attempted: ${data.join(', ')}
-
-Process:
-${data.map((course, i) => {
-    const wasAdded = registeredCourses.has(course);
-    return `  ${i + 1}. "${course}" - ${wasAdded ? '✅ Added/Already exists' : '❌ Not added'}`;
-}).join('\n')}
-
-Final Set.size = <span class="highlight">${registeredCourses.size}</span>
-
-All unique courses (using <span class="highlight">for...of</span>):
-${Array.from(registeredCourses).map((course, i) => `  ${i + 1}. ${course}`).join('\n')}`;
-            }
-        }
 
         // Show notification
         function showNotification(message, type) {

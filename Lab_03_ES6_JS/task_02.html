@@ -249,12 +249,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- ES6 Demonstrations -->
-        <div class="section">
-            <h2>ES6 Concepts Demonstration</h2>
-            <div id="demonstrations"></div>
-        </div>
     </div>
 
     <script>
@@ -284,7 +278,6 @@
             }
             
             updateCartDisplay();
-            showRestDemo(items);
         }
 
         // SPREAD OPERATOR: Function to clone the cart
@@ -301,8 +294,6 @@
             console.log('Original Cart:', shoppingCart);
             console.log('Cloned Cart:', clonedCart);
             console.log('Are they the same reference?', shoppingCart === clonedCart);
-            
-            showSpreadDemo(clonedCart);
         }
 
         // ARRAY DESTRUCTURING: Function to extract first item and remaining items
@@ -318,8 +309,6 @@
             console.log('🔷 DESTRUCTURING DEMO:');
             console.log('First Product:', firstProduct);
             console.log('Remaining Products:', remainingProducts);
-            
-            showDestructuringDemo(firstProduct, remainingProducts);
         }
 
         // Display products on page
@@ -367,73 +356,12 @@
             `;
         }
 
-        // Show REST operator demonstration
-        function showRestDemo(items) {
-            const demoDiv = document.getElementById('demonstrations');
-            demoDiv.innerHTML = `
-                <div class="demo-section">
-                    <h3>REST OPERATOR (...items)</h3>
-                    <div class="demo-content">✅ Added <span class="highlight">${items.length}</span> item(s) to cart using REST operator
 
-The function signature: <span class="highlight">addToCart(...items)</span>
-
-The REST operator collects all arguments into a single array:
-${items.map((item, i) => `  Item ${i + 1}: ${item.name} - $${item.price}`).join('\n')}
-
-Total items in cart: <span class="highlight">${shoppingCart.length}</span></div>
-                </div>
-            `;
-        }
-
-        // Show SPREAD operator demonstration
-        function showSpreadDemo(clonedCart) {
-            const demoDiv = document.getElementById('demonstrations');
-            demoDiv.innerHTML = `
-                <div class="demo-section">
-                    <h3>SPREAD OPERATOR ([...array])</h3>
-                    <div class="demo-content">✅ Cart cloned successfully using SPREAD operator
-
-Original Syntax: <span class="highlight">const clonedCart = [...shoppingCart];</span>
-
-Original Cart (${shoppingCart.length} items):
-${shoppingCart.map((item, i) => `  ${i + 1}. ${item.name} - $${item.price}`).join('\n')}
-
-Cloned Cart (${clonedCart.length} items):
-${clonedCart.map((item, i) => `  ${i + 1}. ${item.name} - $${item.price}`).join('\n')}
-
-✨ The cloned array is a <span class="highlight">shallow copy</span> with a different reference!</div>
-                </div>
-            `;
-        }
-
-        // Show DESTRUCTURING demonstration
-        function showDestructuringDemo(firstProduct, remainingProducts) {
-            const demoDiv = document.getElementById('demonstrations');
-            demoDiv.innerHTML = `
-                <div class="demo-section">
-                    <h3>ARRAY DESTRUCTURING ([first, ...rest])</h3>
-                    <div class="demo-content">✅ Cart destructured successfully
-
-Destructuring Syntax: <span class="highlight">const [firstProduct, ...remainingProducts] = shoppingCart;</span>
-
-<span class="highlight">First Product:</span>
-  📦 ${firstProduct.name}
-  💰 Price: $${firstProduct.price}
-  🆔 ID: ${firstProduct.id}
-
-<span class="highlight">Remaining Products (${remainingProducts.length}):</span>
-${remainingProducts.length > 0 ? remainingProducts.map((item, i) => `  ${i + 1}. ${item.name} - $${item.price}`).join('\n') : '  (none)'}
-
-Total items in cart: <span class="highlight">${shoppingCart.length}</span></div>
-                </div>
-            `;
-        }
 
         // Clear cart function
         function clearCart() {
             shoppingCart = [];
             updateCartDisplay();
-            document.getElementById('demonstrations').innerHTML = '<p style="text-align: center; color: #999; padding: 20px;">Click the demo buttons to see ES6 concepts in action!</p>';
         }
 
         // Demonstration: Add multiple items at once using REST operator
@@ -450,7 +378,6 @@ Total items in cart: <span class="highlight">${shoppingCart.length}</span></div>
         document.addEventListener('DOMContentLoaded', () => {
             displayProducts();
             updateCartDisplay();
-            document.getElementById('demonstrations').innerHTML = '<p style="text-align: center; color: #999; padding: 20px;">Click the demo buttons to see ES6 concepts in action!</p>';
             
             // Show initial demonstration
             console.log('🛒 Shopping Cart System Loaded!');

@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini University Portal - ES6 Integration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px 15px;
+            font-size: 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .students-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .student-card {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .student-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            border-color: #667eea;
+        }
+
+        .student-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 15px;
+        }
+
+        .student-id-badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .student-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .student-info {
+            color: #666;
+            font-size: 0.95rem;
+            margin: 5px 0;
+        }
+
+        .courses-section {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #e9ecef;
+        }
+
+        .courses-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .course-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .course-tag {
+            background: #e8f4f8;
+            color: #2c5282;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            border: 1px solid #4a90e2;
+        }
+
+        .student-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn-small {
+            padding: 8px 15px;
+            font-size: 0.9rem;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .btn-info {
+            background: #17a2b8;
+        }
+
+        .btn-info:hover {
+            background: #138496;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: #999;
+        }
+
+        .empty-state-icon {
+            font-size: 5rem;
+            margin-bottom: 15px;
+        }
+
+        .empty-state-text {
+            font-size: 1.2rem;
+        }
+
+        /* Loading Overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .loading-content {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #667eea;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            font-size: 1.2rem;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .loading-subtext {
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            animation: slideInRight 0.3s ease;
+            z-index: 1000;
+            max-width: 400px;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .notification.success {
+            background: #28a745;
+        }
+
+        .notification.error {
+            background: #dc3545;
+        }
+
+        .notification.info {
+            background: #17a2b8;
+        }
+
+        .notification.warning {
+            background: #ffc107;
+            color: #333;
+        }
+
+        /* ES6 Demo Section */
+        .es6-demo {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .es6-demo h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .demo-box {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .demo-title {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .demo-content {
+            font-family: 'Courier New', monospace;
+            color: #333;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1500;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #999;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            color: #333;
+        }
+
+        @media (max-width: 1200px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .students-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎓 Mini University Portal</h1>
+
+        <!-- Statistics Dashboard -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">👥</div>
+                <div class="stat-number" id="totalStudents">0</div>
+                <div class="stat-label">Total Students (Map.size)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📚</div>
+                <div class="stat-number" id="totalCourses">0</div>
+                <div class="stat-label">Available Courses (Set.size)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📝</div>
+                <div class="stat-number" id="totalEnrollments">0</div>
+                <div class="stat-label">Total Enrollments</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">💾</div>
+                <div class="stat-number" id="saveCount">0</div>
+                <div class="stat-label">Data Saves (Promises)</div>
+            </div>
+        </div>
+
+        <div class="main-grid">
+            <!-- Add Student Form -->
+            <div class="section">
+                <h2>➕ Add Student</h2>
+                
+                <form onsubmit="addStudent(event)">
+                    <div class="form-group">
+                        <label class="form-label">Student ID</label>
+                        <input type="text" class="form-input" id="studentId" placeholder="e.g., S001" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-input" id="studentName" placeholder="e.g., Ali Ahmed" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-input" id="studentEmail" placeholder="e.g., ali@example.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Department</label>
+                        <select class="form-input" id="studentDepartment" required>
+                            <option value="">Select Department</option>
+                            <option value="Computer Science">Computer Science</option>
+                            <option value="Software Engineering">Software Engineering</option>
+                            <option value="Information Technology">Information Technology</option>
+                            <option value="Data Science">Data Science</option>
+                            <option value="Cyber Security">Cyber Security</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Semester</label>
+                        <select class="form-input" id="studentSemester" required>
+                            <option value="">Select Semester</option>
+                            <option value="1">1st Semester</option>
+                            <option value="2">2nd Semester</option>
+                            <option value="3">3rd Semester</option>
+                            <option value="4">4th Semester</option>
+                            <option value="5">5th Semester</option>
+                            <option value="6">6th Semester</option>
+                            <option value="7">7th Semester</option>
+                            <option value="8">8th Semester</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn">
+                        ➕ Add Student to Map
+                    </button>
+                </form>
+
+                <div style="margin-top: 15px; display: flex; gap: 10px;">
+                    <button class="btn btn-small" style="background: #28a745;" onclick="initializeSampleData()">
+                        📦 Load Sample Data
+                    </button>
+                    <button class="btn btn-small" style="background: #dc3545;" onclick="clearAllData()">
+                        🗑️ Clear All
+                    </button>
+                </div>
+            </div>
+
+            <!-- Students Display -->
+            <div class="section">
+                <h2>👥 Registered Students</h2>
+                <div id="studentsContainer">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">👥</div>
+                        <div class="empty-state-text">No students registered yet. Add students to get started!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Container -->
+    <div id="notificationContainer"></div>
+
+    <script>
+        // ========================================
+        // ES6 CLASS: Student Class Definition
+        // ========================================
+        class Student {
+            constructor(id, name, email, department, semester) {
+                this.id = id;
+                this.name = name;
+                this.email = email;
+                this.department = department;
+                this.semester = semester;
+                this.enrolledCourses = new Set(); // Each student has their own Set of courses
+                this.enrollmentDate = new Date().toLocaleDateString();
+            }
+
+            // Method to enroll in a course
+            enrollCourse(courseCode) {
+                this.enrolledCourses.add(courseCode);
+                return this.enrolledCourses.size;
+            }
+
+            // Method to drop a course
+            dropCourse(courseCode) {
+                return this.enrolledCourses.delete(courseCode);
+            }
+
+            // Method to get enrolled courses count
+            getEnrolledCoursesCount() {
+                return this.enrolledCourses.size;
+            }
+
+            // Method to get student info
+            getInfo() {
+                return `${this.name} (${this.id}) - ${this.department} - Semester ${this.semester}`;
+            }
+        }
+
+        // ========================================
+        // ES6 MAP: Store students (Key = Student ID, Value = Student Object)
+        // ========================================
+        const studentsMap = new Map();
+
+        // ========================================
+        // ES6 SET: Available courses in university
+        // ========================================
+        const availableCourses = new Set([
+            'CS101 - Introduction to Programming',
+            'CS102 - Data Structures',
+            'CS201 - Object Oriented Programming',
+            'CS202 - Database Systems',
+            'CS301 - Web Development',
+            'CS302 - Software Engineering',
+            'CS401 - Machine Learning',
+            'CS402 - Artificial Intelligence',
+            'CS403 - Cloud Computing',
+            'CS404 - Cyber Security',
+            'MATH101 - Calculus',
+            'MATH201 - Linear Algebra'
+        ]);
+
+        // Save counter for Promise demonstration
+        let saveCounter = 0;
+
+        // ========================================
+        // ADD STUDENT FUNCTION
+        // ========================================
+        function addStudent(event) {
+            event.preventDefault();
+
+            const id = document.getElementById('studentId').value.trim();
+            const name = document.getElementById('studentName').value.trim();
+            const email = document.getElementById('studentEmail').value.trim();
+            const department = document.getElementById('studentDepartment').value;
+            const semester = document.getElementById('studentSemester').value;
+
+            // Check if student ID already exists using Map.has()
+            if (studentsMap.has(id)) {
+                showNotification(`❌ Student ID "${id}" already exists!`, 'error');
+                return;
+            }
+
+            // Create new Student object using Class
+            const student = new Student(id, name, email, department, semester);
+
+            // Add student to Map
+            studentsMap.set(id, student);
+
+            // Save data using Promise
+            saveDataToServer('add_student', student)
+                .then(() => {
+                    showNotification(`✅ Student "${name}" added successfully!`, 'success');
+                    updateAllDisplays();
+                    event.target.reset();
+                })
+                .catch((error) => {
+                    showNotification(`❌ Failed to save: ${error.message}`, 'error');
+                });
+        }
+
+        // ========================================
+        // ENROLL STUDENT IN COURSES
+        // ========================================
+        function enrollStudentInCourses(studentId) {
+            const student = studentsMap.get(studentId);
+            if (!student) return;
+
+            // Create modal to select courses
+            showCourseSelectionModal(student);
+        }
+
+        // ========================================
+        // SHOW COURSE SELECTION MODAL
+        // ========================================
+        function showCourseSelectionModal(student) {
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            
+            const coursesArray = Array.from(availableCourses);
+            const coursesHTML = coursesArray.map(course => {
+                const isEnrolled = student.enrolledCourses.has(course);
+                return `
+                    <div style="margin: 10px 0;">
+                        <label style="display: flex; align-items: center; gap: 10px; padding: 10px; background: ${isEnrolled ? '#d4edda' : '#f8f9fa'}; border-radius: 5px; cursor: pointer;">
+                            <input type="checkbox" value="${course}" ${isEnrolled ? 'checked' : ''} onchange="toggleCourseEnrollment('${student.id}', '${course}', this.checked)">
+                            <span style="flex: 1;">${course}</span>
+                            ${isEnrolled ? '<span style="color: #28a745; font-weight: bold;">✓ Enrolled</span>' : ''}
+                        </label>
+                    </div>
+                `;
+            }).join('');
+
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="modal-title">📚 Course Enrollment - ${student.name}</div>
+                        <button class="modal-close" onclick="this.closest('.modal').remove()">×</button>
+                    </div>
+                    <div style="margin: 20px 0;">
+                        <p style="color: #666; margin-bottom: 15px;">Select courses to enroll (using Set to prevent duplicates):</p>
+                        ${coursesHTML}
+                    </div>
+                    <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #e9ecef; text-align: center;">
+                        <p style="color: #666; font-size: 0.95rem;">
+                            Currently enrolled in <strong id="enrolledCount-${student.id}">${student.enrolledCourses.size}</strong> courses
+                        </p>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+        }
+
+        // ========================================
+        // TOGGLE COURSE ENROLLMENT
+        // ========================================
+        function toggleCourseEnrollment(studentId, course, isEnrolled) {
+            const student = studentsMap.get(studentId);
+            if (!student) return;
+
+            if (isEnrolled) {
+                student.enrollCourse(course);
+                showNotification(`✅ Enrolled in: ${course}`, 'success');
+            } else {
+                student.dropCourse(course);
+                showNotification(`ℹ️ Dropped: ${course}`, 'info');
+            }
+
+            // Update enrolled count in modal
+            const countElement = document.getElementById(`enrolledCount-${studentId}`);
+            if (countElement) {
+                countElement.textContent = student.enrolledCourses.size;
+            }
+
+            // Save using Promise
+            saveDataToServer('update_enrollment', { studentId, course, action: isEnrolled ? 'enroll' : 'drop' })
+                .then(() => {
+                    updateAllDisplays();
+                })
+                .catch((error) => {
+                    console.error('Save failed:', error);
+                });
+        }
+
+        // ========================================
+        // VIEW STUDENT DETAILS
+        // ========================================
+        function viewStudentDetails(studentId) {
+            const student = studentsMap.get(studentId);
+            if (!student) return;
+
+            const coursesHTML = student.enrolledCourses.size > 0 
+                ? Array.from(student.enrolledCourses).map(course => `<div class="course-tag">${course}</div>`).join('')
+                : '<p style="color: #999; text-align: center;">No courses enrolled yet</p>';
+
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="modal-title">👤 Student Details</div>
+                        <button class="modal-close" onclick="this.closest('.modal').remove()">×</button>
+                    </div>
+                    <div style="text-align: center; margin: 20px 0;">
+                        <div class="student-avatar">👤</div>
+                        <h2 style="color: #333; margin: 10px 0;">${student.name}</h2>
+                        <span class="student-id-badge">${student.id}</span>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                        <p style="margin: 8px 0;"><strong>Email:</strong> ${student.email}</p>
+                        <p style="margin: 8px 0;"><strong>Department:</strong> ${student.department}</p>
+                        <p style="margin: 8px 0;"><strong>Semester:</strong> ${student.semester}</p>
+                        <p style="margin: 8px 0;"><strong>Enrollment Date:</strong> ${student.enrollmentDate}</p>
+                        <p style="margin: 8px 0;"><strong>Courses Enrolled:</strong> ${student.enrolledCourses.size}</p>
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <h3 style="color: #667eea; margin-bottom: 10px;">Enrolled Courses:</h3>
+                        <div class="course-tags">
+                            ${coursesHTML}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+        }
+
+        // ========================================
+        // DELETE STUDENT
+        // ========================================
+        function deleteStudent(studentId) {
+            const student = studentsMap.get(studentId);
+            if (!student) return;
+
+            if (!confirm(`Are you sure you want to delete ${student.name}?`)) {
+                return;
+            }
+
+            studentsMap.delete(studentId);
+
+            saveDataToServer('delete_student', { studentId })
+                .then(() => {
+                    showNotification(`🗑️ Student "${student.name}" deleted`, 'warning');
+                    updateAllDisplays();
+                })
+                .catch((error) => {
+                    showNotification(`❌ Failed to delete: ${error.message}`, 'error');
+                });
+        }
+
+        // ========================================
+        // PROMISE: SIMULATE SAVING DATA TO SERVER
+        // ========================================
+        function saveDataToServer(operation, data) {
+            return new Promise((resolve, reject) => {
+                // Show loading overlay
+                showLoadingOverlay(`Saving ${operation}...`);
+
+                // Simulate network delay (2 seconds)
+                setTimeout(() => {
+                    // Simulate 95% success rate
+                    const isSuccess = Math.random() > 0.05;
+
+                    hideLoadingOverlay();
+
+                    if (isSuccess) {
+                        saveCounter++;
+                        document.getElementById('saveCount').textContent = saveCounter;
+                        resolve({ success: true, operation, data });
+                    } else {
+                        reject(new Error('Network error occurred'));
+                    }
+                }, 2000);
+            });
+        }
+
+        // ========================================
+        // UPDATE ALL DISPLAYS
+        // ========================================
+        function updateAllDisplays() {
+            updateStudentsDisplay();
+            updateStatistics();
+        }
+
+        // ========================================
+        // UPDATE STUDENTS DISPLAY
+        // ========================================
+        function updateStudentsDisplay() {
+            const container = document.getElementById('studentsContainer');
+
+            if (studentsMap.size === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">👥</div>
+                        <div class="empty-state-text">No students registered yet. Add students to get started!</div>
+                    </div>
+                `;
+                return;
+            }
+
+            let studentsHTML = '';
+
+            // Iterate through Map using for...of
+            for (const [studentId, student] of studentsMap) {
+                studentsHTML += `
+                    <div class="student-card">
+                        <div class="student-avatar">👤</div>
+                        <div style="text-align: center;">
+                            <span class="student-id-badge">${student.id}</span>
+                        </div>
+                        <div class="student-name">${student.name}</div>
+                        <div class="student-info">📧 ${student.email}</div>
+                        <div class="student-info">🏢 ${student.department}</div>
+                        <div class="student-info">📅 Semester ${student.semester}</div>
+                        
+                        <div class="courses-section">
+                            <div class="courses-title">Enrolled Courses: ${student.enrolledCourses.size}</div>
+                            <div class="course-tags">
+                                ${student.enrolledCourses.size > 0 
+                                    ? Array.from(student.enrolledCourses).slice(0, 3).map(course => 
+                                        `<div class="course-tag">${course.split(' - ')[0]}</div>`
+                                    ).join('') + (student.enrolledCourses.size > 3 ? `<div class="course-tag">+${student.enrolledCourses.size - 3} more</div>` : '')
+                                    : '<span style="color: #999; font-size: 0.85rem;">No courses yet</span>'
+                                }
+                            </div>
+                        </div>
+
+                        <div class="student-actions">
+                            <button class="btn btn-small btn-info" onclick="viewStudentDetails('${student.id}')">
+                                👁️ View
+                            </button>
+                            <button class="btn btn-small" onclick="enrollStudentInCourses('${student.id}')">
+                                📚 Enroll
+                            </button>
+                            <button class="btn btn-small btn-danger" onclick="deleteStudent('${student.id}')">
+                                🗑️
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            container.innerHTML = `<div class="students-grid">${studentsHTML}</div>`;
+        }
+
+        // ========================================
+        // UPDATE STATISTICS
+        // ========================================
+        function updateStatistics() {
+            document.getElementById('totalStudents').textContent = studentsMap.size;
+            document.getElementById('totalCourses').textContent = availableCourses.size;
+
+            let totalEnrollments = 0;
+            for (const [id, student] of studentsMap) {
+                totalEnrollments += student.enrolledCourses.size;
+            }
+            document.getElementById('totalEnrollments').textContent = totalEnrollments;
+        }
+
+
+
+        // ========================================
+        // LOADING OVERLAY
+        // ========================================
+        function showLoadingOverlay(message) {
+            const overlay = document.createElement('div');
+            overlay.className = 'loading-overlay';
+            overlay.id = 'loadingOverlay';
+            overlay.innerHTML = `
+                <div class="loading-content">
+                    <div class="spinner"></div>
+                    <div class="loading-text">${message}</div>
+                    <div class="loading-subtext">Using Promise to simulate async operation...</div>
+                </div>
+            `;
+            document.body.appendChild(overlay);
+        }
+
+        function hideLoadingOverlay() {
+            const overlay = document.getElementById('loadingOverlay');
+            if (overlay) {
+                overlay.remove();
+            }
+        }
+
+        // ========================================
+        // NOTIFICATIONS
+        // ========================================
+        function showNotification(message, type) {
+            const container = document.getElementById('notificationContainer');
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            container.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.animation = 'fadeOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // ========================================
+        // INITIALIZE SAMPLE DATA
+        // ========================================
+        function initializeSampleData() {
+            const sampleStudents = [
+                new Student('S001', 'Ali Ahmed', 'ali.ahmed@uni.edu', 'Computer Science', '5'),
+                new Student('S002', 'Sara Khan', 'sara.khan@uni.edu', 'Software Engineering', '3'),
+                new Student('S003', 'Hassan Ali', 'hassan.ali@uni.edu', 'Data Science', '7'),
+                new Student('S004', 'Fatima Noor', 'fatima.noor@uni.edu', 'Computer Science', '4')
+            ];
+
+            sampleStudents.forEach(student => {
+                studentsMap.set(student.id, student);
+                // Enroll in some courses
+                const coursesArray = Array.from(availableCourses);
+                for (let i = 0; i < 3; i++) {
+                    student.enrollCourse(coursesArray[Math.floor(Math.random() * coursesArray.length)]);
+                }
+            });
+
+            saveDataToServer('initialize_data', { count: sampleStudents.length })
+                .then(() => {
+                    showNotification(`✅ Loaded ${sampleStudents.length} sample students!`, 'success');
+                    updateAllDisplays();
+                })
+                .catch((error) => {
+                    showNotification(`❌ Failed to load: ${error.message}`, 'error');
+                });
+        }
+
+        // ========================================
+        // CLEAR ALL DATA
+        // ========================================
+        function clearAllData() {
+            if (studentsMap.size === 0) {
+                showNotification('No data to clear', 'warning');
+                return;
+            }
+
+            if (!confirm('Are you sure you want to clear all data?')) {
+                return;
+            }
+
+            const count = studentsMap.size;
+            studentsMap.clear();
+
+            showNotification(`🗑️ Cleared ${count} students`, 'warning');
+            updateAllDisplays();
+        }
+
+        // ========================================
+        // INITIALIZE ON PAGE LOAD
+        // ========================================
+        document.addEventListener('DOMContentLoaded', () => {
+            updateAllDisplays();
+            
+            console.log('🎓 Mini University Portal initialized');
+            console.log('💡 ES6 Concepts integrated:');
+            console.log('  ✓ Class - Student objects');
+            console.log('  ✓ Map - Store students by ID');
+            console.log('  ✓ Set - Course registration (no duplicates)');
+            console.log('  ✓ Promise - Async data saving');
+            console.log(`📚 Available courses: ${availableCourses.size}`);
+        });
+    </script>
+</body>
+</html>

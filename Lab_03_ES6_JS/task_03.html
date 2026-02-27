@@ -392,12 +392,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Promise Demonstration -->
-        <div class="promise-demo">
-            <h3>🔷 Promise Implementation Details</h3>
-            <div class="promise-code" id="promiseDemo">Waiting for action...</div>
-        </div>
     </div>
 
     <script>
@@ -483,23 +477,18 @@
             const loadBtn = document.getElementById('loadBtn');
             loadBtn.disabled = true;
             
-            // Update promise demo
-            updatePromiseDemo('pending');
-            
             // Call fetchUsers() and handle with .then() and .catch()
             fetchUsers()
                 .then((users) => {
                     // SUCCESS: Handle resolved promise
                     console.log('📥 .then() called - Received users:', users);
                     displayUsers(users);
-                    updatePromiseDemo('resolved', users);
                     loadBtn.disabled = false;
                 })
                 .catch((error) => {
                     // ERROR: Handle rejected promise
                     console.error('⚠️ .catch() called - Error:', error.message);
                     displayError(error);
-                    updatePromiseDemo('rejected', error);
                     loadBtn.disabled = false;
                 });
         }
@@ -583,44 +572,7 @@
             }
         }
 
-        // Update promise demonstration panel
-        function updatePromiseDemo(state, data = null) {
-            const demoDiv = document.getElementById('promiseDemo');
-            
-            if (state === 'pending') {
-                demoDiv.innerHTML = `<span class="highlight">State: PENDING</span>
 
-1. fetchUsers() function called
-2. New Promise created
-3. setTimeout() started with 3-second delay
-4. Waiting for async operation to complete...
-
-Code executing:
-  fetchUsers()
-    .then((users) => { /* success handler */ })
-    .catch((error) => { /* error handler */ })`;
-            } else if (state === 'resolved') {
-                demoDiv.innerHTML = `<span class="highlight">State: RESOLVED ✅</span>
-
-1. setTimeout() completed after 3 seconds
-2. shouldSucceed flag was: <span class="highlight">true</span>
-3. Promise resolved with user data
-4. <span class="highlight">.then()</span> handler executed
-5. Received ${data.length} users from promise
-
-Result: Data displayed successfully in UI`;
-            } else if (state === 'rejected') {
-                demoDiv.innerHTML = `<span class="highlight">State: REJECTED ❌</span>
-
-1. setTimeout() completed after 3 seconds
-2. shouldSucceed flag was: <span class="highlight">false</span>
-3. Promise rejected with error
-4. <span class="highlight">.catch()</span> handler executed
-5. Error message: "${data.message}"
-
-Result: Error displayed to user`;
-            }
-        }
 
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', () => {

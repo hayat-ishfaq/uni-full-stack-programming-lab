@@ -505,20 +505,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Map Demonstration -->
-        <div class="section">
-            <h2>ES6 Map Operations</h2>
-            <div class="map-demo">
-                <h3>🗺️ Map Methods & Properties</h3>
-                <div class="map-demo-content" id="mapDemo">
-Waiting for operations...
-
-ES6 Map stores key-value pairs and maintains insertion order!
-Key = Product ID, Value = Product Object
-                </div>
-            </div>
-        </div>
     </div>
 
     <!-- Notification Container -->
@@ -611,7 +597,6 @@ Key = Product ID, Value = Product Object
             });
 
             updateDisplay();
-            updateMapDemo('initialize');
         }
 
         // ADD PRODUCT TO MAP
@@ -646,7 +631,6 @@ Key = Product ID, Value = Product Object
             productCatalog.set(id, product);
 
             showNotification(`✅ Product "${name}" added successfully!`, 'success');
-            updateMapDemo('add', product);
             updateDisplay();
 
             // Clear form
@@ -668,11 +652,9 @@ Key = Product ID, Value = Product Object
             if (product) {
                 showNotification(`✅ Product found: ${product.name}`, 'success');
                 displaySearchResult(product);
-                updateMapDemo('search-found', product);
             } else {
                 showNotification(`❌ Product with ID "${searchId}" not found`, 'error');
                 displaySearchNotFound(searchId);
-                updateMapDemo('search-not-found', searchId);
             }
         }
 
@@ -691,7 +673,6 @@ Key = Product ID, Value = Product Object
 
             if (deleted) {
                 showNotification(`🗑️ Product "${product.name}" deleted successfully!`, 'warning');
-                updateMapDemo('delete', product);
                 updateDisplay();
             }
         }
@@ -707,7 +688,6 @@ Key = Product ID, Value = Product Object
             productCatalog.clear();
 
             showNotification(`🗑️ Cleared all ${count} products from catalog`, 'warning');
-            updateMapDemo('clear');
             updateDisplay();
         }
 
@@ -812,7 +792,6 @@ Key = Product ID, Value = Product Object
         function viewProductDetails(productId) {
             const product = productCatalog.get(productId);
             if (product) {
-                updateMapDemo('view', product);
                 showNotification(`Viewing details for: ${product.name}`, 'info');
             }
         }
@@ -838,118 +817,7 @@ Key = Product ID, Value = Product Object
             document.getElementById('inStockCount').textContent = inStockCount;
         }
 
-        // UPDATE MAP DEMONSTRATION PANEL
-        function updateMapDemo(operation, data = null) {
-            const demoDiv = document.getElementById('mapDemo');
 
-            if (operation === 'initialize') {
-                demoDiv.innerHTML = `<span class="highlight">Operation: Initialize catalog with products</span>
-
-Products added to Map using <span class="highlight">.set(key, value)</span>
-
-Map State:
-  • Map.size = <span class="highlight">${productCatalog.size}</span>
-  • Total products loaded: ${productCatalog.size}
-
-Iterating through Map using <span class="highlight">for...of with Map.entries()</span>:
-${Array.from(productCatalog.entries()).map(([id, product], i) => 
-    `  ${i + 1}. Key: "${id}" → Value: ${product.name} ($${product.price})`
-).join('\n')}`;
-            } else if (operation === 'add') {
-                demoDiv.innerHTML = `<span class="highlight">Operation: productCatalog.set("${data.id}", productObject)</span>
-
-✅ Product added to Map!
-
-Product Details:
-  • ID (Key): <span class="highlight">${data.id}</span>
-  • Name: ${data.name}
-  • Price: $${data.price}
-  • Stock: ${data.stock}
-
-Map State:
-  • Map.size = <span class="highlight">${productCatalog.size}</span>
-  • Map.has("${data.id}") = <span class="highlight">${productCatalog.has(data.id)}</span>
-
-All products in Map:
-${Array.from(productCatalog.keys()).map((id, i) => `  ${i + 1}. ${id}`).join('\n')}`;
-            } else if (operation === 'search-found') {
-                demoDiv.innerHTML = `<span class="highlight">Operation: productCatalog.get("${data.id}")</span>
-
-✅ Product Found!
-
-Retrieved Product:
-  • ID: ${data.id}
-  • Name: <span class="highlight">${data.name}</span>
-  • Category: ${data.category}
-  • Price: $${data.price}
-  • Stock: ${data.stock}
-
-Map Methods Used:
-  • <span class="highlight">Map.get(key)</span> - Returns value for the key
-  • Map.has("${data.id}") = ${productCatalog.has(data.id)}
-
-Current Map.size = <span class="highlight">${productCatalog.size}</span>`;
-            } else if (operation === 'search-not-found') {
-                demoDiv.innerHTML = `<span class="highlight">Operation: productCatalog.get("${data}")</span>
-
-❌ Product Not Found!
-
-Search Details:
-  • Searched for ID: <span class="highlight">${data}</span>
-  • Map.get("${data}") = undefined
-  • Map.has("${data}") = <span class="highlight">false</span>
-
-Available Product IDs in Map:
-${Array.from(productCatalog.keys()).map((id, i) => `  ${i + 1}. ${id}`).join('\n') || '  (none)'}
-
-Current Map.size = <span class="highlight">${productCatalog.size}</span>`;
-            } else if (operation === 'delete') {
-                demoDiv.innerHTML = `<span class="highlight">Operation: productCatalog.delete("${data.id}")</span>
-
-✅ Product Deleted from Map!
-
-Deleted Product:
-  • ID: ${data.id}
-  • Name: <span class="highlight">${data.name}</span>
-  • Was in Map: true → Now: <span class="highlight">${productCatalog.has(data.id)}</span>
-
-Map State After Deletion:
-  • Map.size = <span class="highlight">${productCatalog.size}</span>
-  • Map.has("${data.id}") = ${productCatalog.has(data.id)}
-
-Remaining products:
-${Array.from(productCatalog.keys()).map((id, i) => `  ${i + 1}. ${id}`).join('\n') || '  (none)'}`;
-            } else if (operation === 'clear') {
-                demoDiv.innerHTML = `<span class="highlight">Operation: productCatalog.clear()</span>
-
-✅ All products removed from Map!
-
-Map State:
-  • Map.size = <span class="highlight">${productCatalog.size}</span>
-  • Map is empty = ${productCatalog.size === 0}
-
-💡 Map.clear() removes ALL key-value pairs!`;
-            } else if (operation === 'view') {
-                demoDiv.innerHTML = `<span class="highlight">Operation: View Product Details</span>
-
-Product Retrieved using <span class="highlight">Map.get("${data.id}")</span>:
-
-${data.icon} <span class="highlight">${data.name}</span>
-━━━━━━━━━━━━━━━━━━━━━
-  • Product ID: ${data.id}
-  • Category: ${data.category}
-  • Price: $${data.price}
-  • Stock: ${data.stock} units
-  • Description: ${data.description}
-
-Map Methods:
-  • Map.get(key) - Retrieves value
-  • Map.has(key) - Checks existence
-  • Map.size - Returns count
-  
-Current Map.size = <span class="highlight">${productCatalog.size}</span>`;
-            }
-        }
 
         // HELPER FUNCTIONS
         function getCategoryIcon(category) {
