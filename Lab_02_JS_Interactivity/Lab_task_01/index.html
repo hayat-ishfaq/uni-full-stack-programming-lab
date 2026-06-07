@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Quiz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1> Dynamic Quiz </h1>
+    </header>
+
+    <section class="container">
+        <div class="question">
+            <h2>1. Who is creator of JavaScript?</h2>
+            <div class="answer">
+                <label class="option">
+                    <input type="radio" name="question1" value="Brendan Eich">
+                    <span>Brendan Eich</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="question1" value="James Gosling">
+                    <span>James Gosling</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="question1" value="Guido van Rossum">
+                    <span>Guido van Rossum</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="question1" value="Dennis Ritchie">
+                    <span>Dennis Ritchie</span>
+                </label>
+            </div>
+        </div>
+        <div class="question">
+            <h2>2. HTML stands for:</h2>
+            <div class="answer">
+                <label class="option">
+                    <input type="radio" name="question2" value="HyperText Markup Language">
+                    <span>HyperText Markup Language</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="question2" value="High Tech Modern Language">
+                    <span>High Tech Modern Language</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="question2" value="Home Tool Markup Language">
+                    <span>Home Tool Markup Language</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="question2" value="Hyperlinks and Text Markup Language">
+                    <span>Hyperlinks and Text Markup Language</span>
+                </label>
+            </div>
+        </div>
+        <div class="question">
+            <h2>3. CSS stands for:</h2>
+            <div class="answer">
+                <label class="option">
+                    <input type="radio" name="question3" value="Cascading Style Sheets">
+                    <span>Cascading Style Sheets</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="question3" value="Creative Style Sheets">
+                    <span>Creative Style Sheets</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="question3" value="Computer Style Sheets">
+                    <span>Computer Style Sheets</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="question3" value="Colorful Style Sheets">
+                    <span>Colorful Style Sheets</span>
+                </label>
+            </div>
+        </div>
+        <div class="question">
+            <h2>4. What is capital of Pakistan?</h2>
+            <div class="answer">
+                <label class="option">
+                    <input type="radio" name="question4" value="Islamabad">
+                    <span>Islamabad</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="question4" value="Karachi">
+                    <span>Karachi</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="question4" value="Lahore">
+                    <span>Lahore</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="question4" value="Peshawar">
+                    <span>Peshawar</span>
+                </label>
+            </div>
+        </div>
+        <div class="question">
+            <h2>5. What is the largest planet in our solar system?</h2>
+            <div class="answer">
+                <label class="option">
+                    <input type="radio" name="question5" value="Jupiter">
+                    <span>Jupiter</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="question5" value="Saturn">
+                    <span>Saturn</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="question5" value="Earth">
+                    <span>Earth</span>
+                </label>
+                <label class="option">
+                    <input type="radio" name="question5" value="Mars">
+                    <span>Mars</span>
+                </label>
+            </div>
+        </div>
+    </section>
+
+    <button id="submit-btn">Submit Quiz</button>
+    <button id="reset-btn">Reset Quiz</button>
+
+    <div id="result-container"></div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

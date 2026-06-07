@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Image Gallery</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Animated Image Gallery</h1>
+        <div class="gallery-wrapper">
+            <div class="gallery-container">
+                <button class="nav-btn prev-btn" id="prevBtn">
+                    <span>&#10094;</span>
+                </button>
+                
+                <div class="image-container">
+                    <img id="galleryImage" src="" alt="Gallery Image">
+                    <div class="image-counter">
+                        <span id="currentImage">1</span> / <span id="totalImages">5</span>
+                    </div>
+                </div>
+                
+                <button class="nav-btn next-btn" id="nextBtn">
+                    <span>&#10095;</span>
+                </button>
+            </div>
+            
+            <div class="caption-container">
+                <h2 id="imageCaption">Image Caption</h2>
+                <p id="imageDescription">Image description goes here</p>
+            </div>
+            
+            <div class="thumbnail-container" id="thumbnailContainer"></div>
+        </div>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+</html>

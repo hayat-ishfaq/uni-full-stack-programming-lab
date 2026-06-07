@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabbed Content with Smooth Scroll</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-decoration">✨</div>
+            <h1>Course Information Portal</h1>
+            <p class="subtitle">Explore our comprehensive course catalog</p>
+            <div class="header-decoration">✨</div>
+        </header>
+
+        <!-- Tab Navigation -->
+        <nav class="tab-navigation">
+            <button class="tab-btn active" data-tab="overview">
+                <span class="tab-icon">📚</span>
+                <span class="tab-text">Overview</span>
+            </button>
+            <button class="tab-btn" data-tab="curriculum">
+                <span class="tab-icon">📝</span>
+                <span class="tab-text">Curriculum</span>
+            </button>
+            <button class="tab-btn" data-tab="instructors">
+                <span class="tab-icon">👨‍🏫</span>
+                <span class="tab-text">Instructors</span>
+            </button>
+            <button class="tab-btn" data-tab="schedule">
+                <span class="tab-icon">📅</span>
+                <span class="tab-text">Schedule</span>
+            </button>
+            <button class="tab-btn" data-tab="reviews">
+                <span class="tab-icon">⭐</span>
+                <span class="tab-text">Reviews</span>
+            </button>
+        </nav>
+
+        <!-- Tab Content Sections -->
+        <div class="tab-content-wrapper">
+            <!-- Overview Tab -->
+            <div class="tab-content active" id="overview">
+                <div class="content-header">
+                    <h2>Course Overview</h2>
+                    <span class="badge">Popular</span>
+                </div>
+                <div class="content-body">
+                    <p class="intro-text">
+                        Welcome to our comprehensive Full Stack Web Development course. This program is designed to 
+                        transform you from a beginner to a confident full-stack developer.
+                    </p>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">🎯</div>
+                            <h3>Practical Focus</h3>
+                            <p>Hands-on projects and real-world applications throughout the course.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">⏱️</div>
+                            <h3>Flexible Learning</h3>
+                            <p>Learn at your own pace with lifetime access to all course materials.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">💼</div>
+                            <h3>Career Support</h3>
+                            <p>Resume review, interview prep, and job placement assistance included.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🏆</div>
+                            <h3>Certification</h3>
+                            <p>Receive an industry-recognized certificate upon course completion.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Curriculum Tab -->
+            <div class="tab-content" id="curriculum">
+                <div class="content-header">
+                    <h2>Course Curriculum</h2>
+                    <span class="badge">40+ Hours</span>
+                </div>
+                <div class="content-body">
+                    <div class="curriculum-section">
+                        <h3>Module 1: Frontend Development</h3>
+                        <ul class="curriculum-list">
+                            <li><span class="check-icon">✓</span> HTML5 & Semantic Markup</li>
+                            <li><span class="check-icon">✓</span> CSS3, Flexbox & Grid</li>
+                            <li><span class="check-icon">✓</span> JavaScript ES6+ Fundamentals</li>
+                            <li><span class="check-icon">✓</span> DOM Manipulation & Events</li>
+                            <li><span class="check-icon">✓</span> React.js Framework</li>
+                        </ul>
+                    </div>
+                    <div class="curriculum-section">
+                        <h3>Module 2: Backend Development</h3>
+                        <ul class="curriculum-list">
+                            <li><span class="check-icon">✓</span> Node.js & Express.js</li>
+                            <li><span class="check-icon">✓</span> RESTful API Design</li>
+                            <li><span class="check-icon">✓</span> Database Management (MongoDB, SQL)</li>
+                            <li><span class="check-icon">✓</span> Authentication & Security</li>
+                            <li><span class="check-icon">✓</span> Deployment & DevOps Basics</li>
+                        </ul>
+                    </div>
+                    <div class="curriculum-section">
+                        <h3>Module 3: Advanced Topics</h3>
+                        <ul class="curriculum-list">
+                            <li><span class="check-icon">✓</span> State Management (Redux)</li>
+                            <li><span class="check-icon">✓</span> Testing & Debugging</li>
+                            <li><span class="check-icon">✓</span> Performance Optimization</li>
+                            <li><span class="check-icon">✓</span> Cloud Services (AWS, Azure)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Instructors Tab -->
+            <div class="tab-content" id="instructors">
+                <div class="content-header">
+                    <h2>Meet Your Instructors</h2>
+                    <span class="badge">Expert Team</span>
+                </div>
+                <div class="content-body">
+                    <div class="instructor-grid">
+                        <div class="instructor-card">
+                            <div class="instructor-avatar">JD</div>
+                            <h3>John Doe</h3>
+                            <p class="instructor-title">Lead Full Stack Developer</p>
+                            <p class="instructor-bio">
+                                15+ years of experience in web development. Previously worked at Google and Amazon.
+                                Passionate about teaching and mentoring aspiring developers.
+                            </p>
+                            <div class="instructor-stats">
+                                <span>⭐ 4.9 Rating</span>
+                                <span>👥 10,000+ Students</span>
+                            </div>
+                        </div>
+                        <div class="instructor-card">
+                            <div class="instructor-avatar">SM</div>
+                            <h3>Sarah Miller</h3>
+                            <p class="instructor-title">Frontend Specialist</p>
+                            <p class="instructor-bio">
+                                10+ years specializing in React and modern frontend architectures. Former senior engineer
+                                at Microsoft with a passion for UI/UX design.
+                            </p>
+                            <div class="instructor-stats">
+                                <span>⭐ 4.8 Rating</span>
+                                <span>👥 8,500+ Students</span>
+                            </div>
+                        </div>
+                        <div class="instructor-card">
+                            <div class="instructor-avatar">MJ</div>
+                            <h3>Michael Johnson</h3>
+                            <p class="instructor-title">Backend Architect</p>
+                            <p class="instructor-bio">
+                                12+ years in backend development and system design. Expert in Node.js, databases, and
+                                cloud infrastructure. Previously at Netflix.
+                            </p>
+                            <div class="instructor-stats">
+                                <span>⭐ 4.9 Rating</span>
+                                <span>👥 9,200+ Students</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Schedule Tab -->
+            <div class="tab-content" id="schedule">
+                <div class="content-header">
+                    <h2>Course Schedule</h2>
+                    <span class="badge">Flexible</span>
+                </div>
+                <div class="content-body">
+                    <div class="schedule-info">
+                        <p class="intro-text">
+                            Our course offers flexible scheduling options to fit your lifestyle. Choose from self-paced
+                            learning or join our structured cohort programs.
+                        </p>
+                    </div>
+                    <div class="schedule-options">
+                        <div class="schedule-card">
+                            <h3>Self-Paced Program</h3>
+                            <div class="schedule-details">
+                                <p><strong>Duration:</strong> 3-6 months</p>
+                                <p><strong>Time Commitment:</strong> 10-15 hours/week</p>
+                                <p><strong>Access:</strong> Lifetime</p>
+                                <p><strong>Start Date:</strong> Anytime</p>
+                            </div>
+                            <ul class="schedule-features">
+                                <li>Learn at your own pace</li>
+                                <li>All course materials available immediately</li>
+                                <li>Community forum access</li>
+                                <li>Monthly office hours</li>
+                            </ul>
+                        </div>
+                        <div class="schedule-card highlighted">
+                            <div class="popular-badge">Most Popular</div>
+                            <h3>Cohort-Based Program</h3>
+                            <div class="schedule-details">
+                                <p><strong>Duration:</strong> 12 weeks</p>
+                                <p><strong>Time Commitment:</strong> 20-25 hours/week</p>
+                                <p><strong>Access:</strong> Lifetime</p>
+                                <p><strong>Next Cohort:</strong> Starting April 1, 2026</p>
+                            </div>
+                            <ul class="schedule-features">
+                                <li>Structured weekly curriculum</li>
+                                <li>Live instructor sessions (3x/week)</li>
+                                <li>Study groups & peer collaboration</li>
+                                <li>Weekly 1-on-1 mentor sessions</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reviews Tab -->
+            <div class="tab-content" id="reviews">
+                <div class="content-header">
+                    <h2>Student Reviews</h2>
+                    <span class="badge">4.9/5</span>
+                </div>
+                <div class="content-body">
+                    <div class="reviews-summary">
+                        <div class="rating-overview">
+                            <div class="rating-number">4.9</div>
+                            <div class="rating-stars">⭐⭐⭐⭐⭐</div>
+                            <p>Based on 2,547 reviews</p>
+                        </div>
+                    </div>
+                    <div class="reviews-list">
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="review-author">
+                                    <div class="author-avatar">AK</div>
+                                    <div class="author-info">
+                                        <h4>Alex Kim</h4>
+                                        <p>Full Stack Developer at Tech Corp</p>
+                                    </div>
+                                </div>
+                                <div class="review-rating">⭐⭐⭐⭐⭐</div>
+                            </div>
+                            <p class="review-text">
+                                "This course completely changed my career! I went from knowing nothing about coding to 
+                                landing my dream job as a full-stack developer. The instructors are amazing and the 
+                                curriculum is very comprehensive."
+                            </p>
+                            <p class="review-date">2 weeks ago</p>
+                        </div>
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="review-author">
+                                    <div class="author-avatar">LP</div>
+                                    <div class="author-info">
+                                        <h4>Lisa Patel</h4>
+                                        <p>Frontend Developer at StartupXYZ</p>
+                                    </div>
+                                </div>
+                                <div class="review-rating">⭐⭐⭐⭐⭐</div>
+                            </div>
+                            <p class="review-text">
+                                "The hands-on projects were incredibly valuable. I built a portfolio of real-world 
+                                applications that impressed potential employers. Highly recommend this course to anyone 
+                                serious about web development."
+                            </p>
+                            <p class="review-date">1 month ago</p>
+                        </div>
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="review-author">
+                                    <div class="author-avatar">TC</div>
+                                    <div class="author-info">
+                                        <h4>Tom Chen</h4>
+                                        <p>Software Engineer at BigTech Inc</p>
+                                    </div>
+                                </div>
+                                <div class="review-rating">⭐⭐⭐⭐⭐</div>
+                            </div>
+                            <p class="review-text">
+                                "Best investment I've made in my education. The support from instructors and the 
+                                community was outstanding. The career services helped me prepare for interviews and I 
+                                got multiple job offers within a month of completing the course."
+                            </p>
+                            <p class="review-date">2 months ago</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+</html>

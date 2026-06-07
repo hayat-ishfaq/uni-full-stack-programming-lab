@@ -1,0 +1,35 @@
+<<<<<<< HEAD
+{
+  "name": "lab-task01-nextjs-app",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "14.2.24",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  }
+}
+=======
+{
+  "name": "lab-task01-nextjs-app",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "14.2.24",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  }
+}
+>>>>>>> f9253df3f1baf194a3fda381200b9cbe335453ef

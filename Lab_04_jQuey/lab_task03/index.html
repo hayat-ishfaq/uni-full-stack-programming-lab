@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Form Validation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-wrapper">
+            <h1>User Registration</h1>
+            <p class="subtitle">Fill in the form below to create your account</p>
+            
+            <form id="registrationForm" novalidate>
+                <!-- Full Name Field -->
+                <div class="form-group">
+                    <label for="fullName">Full Name <span class="required">*</span></label>
+                    <input type="text" id="fullName" name="fullName" placeholder="Enter your full name">
+                    <span class="error-message"></span>
+                </div>
+
+                <!-- Email Field -->
+                <div class="form-group">
+                    <label for="email">Email Address <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email">
+                    <span class="error-message"></span>
+                </div>
+
+                <!-- Phone Field -->
+                <div class="form-group">
+                    <label for="phone">Phone Number <span class="required">*</span></label>
+                    <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+                    <span class="error-message"></span>
+                </div>
+
+                <!-- Password Field -->
+                <div class="form-group">
+                    <label for="password">Password <span class="required">*</span></label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password">
+                    <span class="error-message"></span>
+                    <small class="field-hint">Password must be at least 8 characters</small>
+                </div>
+
+                <!-- Confirm Password Field -->
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password <span class="required">*</span></label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password">
+                    <span class="error-message"></span>
+                </div>
+
+                <!-- Age Field -->
+                <div class="form-group">
+                    <label for="age">Age <span class="required">*</span></label>
+                    <input type="number" id="age" name="age" placeholder="Enter your age">
+                    <span class="error-message"></span>
+                </div>
+
+                <!-- Country Field -->
+                <div class="form-group">
+                    <label for="country">Country <span class="required">*</span></label>
+                    <select id="country" name="country">
+                        <option value="">Select your country</option>
+                        <option value="usa">United States</option>
+                        <option value="uk">United Kingdom</option>
+                        <option value="canada">Canada</option>
+                        <option value="australia">Australia</option>
+                        <option value="pakistan">Pakistan</option>
+                        <option value="india">India</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <span class="error-message"></span>
+                </div>
+
+                <!-- Terms and Conditions -->
+                <div class="form-group checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="terms" name="terms">
+                        <span>I agree to the <a href="#" onclick="return false;">Terms and Conditions</a></span>
+                    </label>
+                    <span class="error-message"></span>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="submit-btn">Register</button>
+            </form>
+
+            <!-- Success Message -->
+            <div id="successMessage" class="success-message">
+                <div class="success-icon">✓</div>
+                <h2>Registration Successful!</h2>
+                <p>Your account has been created successfully.</p>
+                <button id="closeSuccess" class="close-btn">Close</button>
+            </div>
+        </div>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+</html>

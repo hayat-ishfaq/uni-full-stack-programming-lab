@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag-and-Drop Sortable List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Drag-and-Drop Sortable List</h1>
+            <p class="subtitle">Drag items to reorder them</p>
+        </header>
+
+        <div class="controls">
+            <div class="add-item-section">
+                <input type="text" id="newItemInput" placeholder="Enter new item...">
+                <button id="addItemBtn" class="add-btn">Add Item</button>
+            </div>
+            <button id="resetBtn" class="reset-btn">Reset List</button>
+        </div>
+
+        <div class="info-box">
+            <p>💡 <strong>How to use:</strong> Click and drag any item to reorder the list. Items will automatically adjust their positions.</p>
+        </div>
+
+        <div class="list-container">
+            <ul id="sortableList" class="sortable-list"></ul>
+        </div>
+
+        <div class="order-display">
+            <h3>Current Order:</h3>
+            <p id="orderText">-</p>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

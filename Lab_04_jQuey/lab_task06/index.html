@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Data Fetcher</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>API Data Fetcher</h1>
+            <p class="subtitle">Fetching posts from JSONPlaceholder API</p>
+        </header>
+
+        <div class="controls">
+            <div class="filter-group">
+                <label for="dataType">Data Type:</label>
+                <select id="dataType">
+                    <option value="posts">Posts</option>
+                    <option value="users">Users</option>
+                    <option value="comments">Comments</option>
+                </select>
+            </div>
+            <button id="refreshBtn" class="refresh-btn">🔄 Refresh</button>
+        </div>
+
+        <div class="stats">
+            <span id="loadedCount">Loaded: 0</span>
+            <span id="totalCount">Total: 0</span>
+        </div>
+
+        <div id="loadingSpinner" class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Loading data...</p>
+        </div>
+
+        <div id="dataContainer" class="data-container"></div>
+
+        <div class="button-container">
+            <button id="loadMoreBtn" class="load-more-btn">Load More</button>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

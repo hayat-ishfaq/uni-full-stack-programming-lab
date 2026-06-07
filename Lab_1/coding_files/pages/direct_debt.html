@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set up Direct Debit - Talyllyn Railway</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../styles/direct_debt.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Arial&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Background Container -->
+    <div class="background-container">
+        <!-- Form Modal Container -->
+        <div class="form-modal-container">
+            <div class="direct-debit-modal">
+                <!-- Top Red Stripe -->
+                <div class="top-stripe"></div>
+                
+                <!-- Logo -->
+                <div class="logo-container">
+                    <img src="../assets/logo.png" alt="Talyllyn Railway Logo" class="railway-logo">
+                </div>
+                
+                <!-- Form Content -->
+                <div class="form-content">
+                    <!-- Title Section -->
+                    <div class="title-section">
+                        <h2 class="form-title">Set up Direct Debit for membership renewal</h2>
+                        <p class="form-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                    
+                    <!-- Form -->
+                    <form id="directDebitForm" class="debit-form">
+                        
+                        <!-- Your Basic Info Section -->
+                        <div class="form-section">
+                            <div class="section-header">
+                                <h3>Your Basic Info</h3>
+                            </div>
+                            <div class="section-body">
+                                <div class="row mb-3 align-items-center">
+                                    <label for="title" class="col-md-3 col-form-label text-md-end">Title <span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <div class="select-with-icon">
+                                            <select class="form-control form-select" id="title" required>
+                                                <option value=""></option>
+                                                <option value="Mr">Mr</option>
+                                                <option value="Mrs">Mrs</option>
+                                                <option value="Miss">Miss</option>
+                                                <option value="Ms">Ms</option>
+                                                <option value="Dr">Dr</option>
+                                                <option value="Prof">Prof</option>
+                                                <option value="Rev">Rev</option>
+                                            </select>
+                                            <span class="select-icon"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-3 align-items-center">
+                                    <label for="firstName" class="col-md-3 col-form-label text-md-end">First name(s) <span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="firstName" required>
+                                    </div>
+                                </div>
+                                <div class="row mb-3 align-items-center">
+                                    <label for="lastName" class="col-md-3 col-form-label text-md-end">Last name <span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="lastName" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Your Contact Details Section -->
+                        <div class="form-section">
+                            <div class="section-header">
+                                <h3>Your contact details</h3>
+                            </div>
+                            <div class="section-body">
+                                <p class="section-description">Please provide your telephone number (including area code) and your email address</p>
+                                <div class="row mb-3 align-items-center">
+                                    <label for="contactNumber" class="col-md-3 col-form-label text-md-end">Contact number <span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input type="tel" class="form-control" id="contactNumber" required>
+                                    </div>
+                                </div>
+                                <div class="row mb-3 align-items-center">
+                                    <label for="altContactNumber" class="col-md-3 col-form-label text-md-end">Alternative contact number</label>
+                                    <div class="col-md-9">
+                                        <input type="tel" class="form-control" id="altContactNumber">
+                                    </div>
+                                </div>
+                                <div class="row mb-3 align-items-center">
+                                    <label for="emailAddress" class="col-md-3 col-form-label text-md-end">Email address <span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input type="email" class="form-control" id="emailAddress" required>
+                                    </div>
+                                </div>
+                                <div class="row mb-3 align-items-center">
+                                    <label for="confirmEmail" class="col-md-3 col-form-label text-md-end">Confirm email address <span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input type="email" class="form-control" id="confirmEmail" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Your Account Address Section -->
+                        <div class="form-section">
+                            <div class="section-header">
+                                <h3>Your account address</h3>
+                            </div>
+                            <div class="section-body">
+                                <p class="section-description">Please provide your Bank Account address.</p>
+                                <div class="row mb-3 align-items-center">
+                                    <label for="postcode" class="col-md-3 col-form-label text-md-end">Postcode <span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <div class="row g-2">
+                                            <div class="col-6">
+                                                <input type="text" class="form-control" id="postcode" required>
+                                            </div>
+                                            <div class="col-6">
+                                                <input type="text" class="form-control" id="postcode" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-3 align-items-center">
+                                    <label for="addressLine1" class="col-md-3 col-form-label text-md-end">Address line 1 <span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="addressLine1" required>
+                                    </div>
+                                </div>
+                                <div class="row mb-3 align-items-center">
+                                    <label for="addressLine2" class="col-md-3 col-form-label text-md-end">Address line 2</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="addressLine2">
+                                    </div>
+                                </div>
+                                <div class="row mb-3 align-items-center">
+                                    <label for="town" class="col-md-3 col-form-label text-md-end">Town <span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="town" required>
+                                    </div>
+                                </div>
+                                <div class="row mb-3 align-items-center">
+                                    <label for="county" class="col-md-3 col-form-label text-md-end">County</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="county">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Your Bank Details Section -->
+                        <div class="form-section">
+                            <div class="section-header">
+                                <h3>Your bank details</h3>
+                            </div>
+                            <div class="section-body">
+                                <p class="section-description">This is the bank account from where the Direct Debit payments will be taken.</p>
+                                <div class="row mb-3 align-items-center">
+                                    <label for="accountHolderName" class="col-md-3 col-form-label text-md-end">Account holder name <span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="accountHolderName" required>
+                                    </div>
+                                </div>
+                                <div class="row mb-3 align-items-center">
+                                    <label for="sortCode" class="col-md-3 col-form-label text-md-end">Sort code <span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <div class="sort-code-inputs">
+                                            <input type="text" class="form-control sort-code" maxlength="2" id="sortCode1" required>
+                                            <input type="text" class="form-control sort-code" maxlength="2" id="sortCode2" required>
+                                            <input type="text" class="form-control sort-code" maxlength="2" id="sortCode3" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-3 align-items-center">
+                                    <label for="accountNumber" class="col-md-3 col-form-label text-md-end">Account number <span class="required">*</span></label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" id="accountNumber" maxlength="8" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Submit Button -->
+                        <div class="button-section">
+                            <button type="submit" class="btn btn-checkout">Check Out</button>
+                        </div>
+                        
+                    </form>
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        // Auto-tab functionality for sort code inputs
+        document.querySelectorAll('.sort-code').forEach((input, index, inputs) => {
+            input.addEventListener('input', function() {
+                if (this.value.length === this.maxLength && index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+            });
+        });
+        
+        // Form validation
+        document.getElementById('directDebitForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('emailAddress').value;
+            const confirmEmail = document.getElementById('confirmEmail').value;
+            
+            if (email !== confirmEmail) {
+                alert('Email addresses do not match!');
+                return;
+            }
+            
+            // Form is valid
+            alert('Form submitted successfully!');
+            // Add your form submission logic here
+        });
+    </script>
+</body>
+</html>

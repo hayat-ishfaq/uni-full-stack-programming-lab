@@ -1,0 +1,26 @@
+<<<<<<< HEAD
+{
+  "name": "labtask3-dynamic-user-page",
+  "version": "1.0.0",
+  "description": "Lab task 3: dynamic user page with Express",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+=======
+{
+  "name": "labtask3-dynamic-user-page",
+  "version": "1.0.0",
+  "description": "Lab task 3: dynamic user page with Express",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+>>>>>>> c8eef5b0f76ceef6ce860885c7d9eea8dbce729c
+}

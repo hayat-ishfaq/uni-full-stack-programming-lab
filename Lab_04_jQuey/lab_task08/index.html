@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Quiz Game</h1>
+            <p class="subtitle">Test your knowledge with multiple choice questions</p>
+        </header>
+
+        <div id="startScreen" class="start-screen">
+            <div class="welcome-box">
+                <h2>Welcome to the Quiz!</h2>
+                <p>📝 10 multiple choice questions</p>
+                <p>⏱️ No time limit - take your time</p>
+                <p>🏆 Get your score at the end</p>
+                <button id="startBtn" class="start-btn">Start Quiz</button>
+            </div>
+        </div>
+
+        <div id="quizScreen" class="quiz-screen">
+            <div class="progress-bar">
+                <div id="progressFill" class="progress-fill"></div>
+            </div>
+
+            <div class="question-info">
+                <span class="question-number">Question <span id="currentQuestion">1</span> of <span id="totalQuestions">10</span></span>
+                <span class="score-tracker">Score: <span id="currentScore">0</span></span>
+            </div>
+
+            <div class="question-container">
+                <h2 id="questionText" class="question-text"></h2>
+                <div id="answersContainer" class="answers-container"></div>
+            </div>
+
+            <div class="navigation">
+                <button id="prevBtn" class="nav-btn prev-btn" disabled>← Previous</button>
+                <button id="nextBtn" class="nav-btn next-btn" disabled>Next →</button>
+            </div>
+        </div>
+
+        <div id="resultScreen" class="result-screen">
+            <div class="result-box">
+                <h2>Quiz Completed! 🎉</h2>
+                <div class="score-display">
+                    <div class="final-score">
+                        <span id="finalScore">0</span>
+                        <span class="score-separator">/</span>
+                        <span id="totalScore">10</span>
+                    </div>
+                    <p class="score-percentage" id="scorePercentage">0%</p>
+                </div>
+                <p id="resultMessage" class="result-message"></p>
+                <div class="result-details">
+                    <div class="detail-item correct">
+                        <span class="detail-label">Correct Answers:</span>
+                        <span id="correctCount" class="detail-value">0</span>
+                    </div>
+                    <div class="detail-item incorrect">
+                        <span class="detail-label">Incorrect Answers:</span>
+                        <span id="incorrectCount" class="detail-value">0</span>
+                    </div>
+                </div>
+                <div class="result-actions">
+                    <button id="restartBtn" class="restart-btn">Restart Quiz</button>
+                    <button id="reviewBtn" class="review-btn">Review Answers</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="reviewScreen" class="review-screen">
+            <h2>Answer Review</h2>
+            <div id="reviewContainer" class="review-container"></div>
+            <button id="backToResultBtn" class="back-btn">Back to Results</button>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

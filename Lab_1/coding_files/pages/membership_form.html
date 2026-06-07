@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membership Application - Talyllyn Railway</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../styles/membership_form.css">
+</head>
+<body>
+    <!-- Background Container -->
+    <div class="background-container">
+        <!-- Form Modal Container -->
+        <div class="form-modal-container">
+            <div class="membership-modal">
+                <!-- Top Red Stripe -->
+                <div class="top-stripe"></div>
+                
+                <!-- Logo -->
+                <div class="logo-container">
+                    <img src="../assets/logo.png" alt="Talyllyn Railway Logo" class="railway-logo">
+                </div>
+                
+                <!-- Form Content -->
+                <div class="form-content">
+                    <!-- Title Section -->
+                    <div class="title-section">
+                        <h2 class="form-title">Talyllyn railway Preservation Society Membership application and renewal</h2>
+                        <p class="form-description">Set ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                    </div>
+                    
+                    <!-- Membership Classes Section -->
+                    <div class="membership-classes-wrapper">
+                        <h3 class="section-title">Talyllyn Railway Membership Classes 2015</h3>
+                        
+                        <div class="membership-table">
+                            <div>
+                                <div class="membership-row">
+                                    <div class="membership-info">
+                                        <strong>Ordinary Member</strong>
+                                    </div>
+                                </div>
+                                
+                                <div class="membership-row">
+                                    <div class="membership-info">
+                                        <strong>Senior (over 65)</strong>
+                                    </div>
+                                </div>
+                                
+                                <div class="membership-row">
+                                    <div class="membership-info">
+                                        <strong>Junior (under 21)</strong>
+                                    </div>
+                                </div>
+                                
+                                <div class="membership-row">
+                                    <div class="membership-info">
+                                        <strong>Associate</strong><br>
+                                        <small>(spouse, partner or primary carer of a Life, Senior Life, Ordinary or Senior)</small>
+                                    </div>
+                                </div>
+                                
+                                <div class="membership-row">
+                                    <div class="membership-info">
+                                        <strong>Associate Junior (under 21)</strong><br>
+                                        <small>(child of a Life, Senior Life, Ordinary or Senior)</small>
+                                    </div>
+                                </div>
+                                
+                                <div class="membership-row">
+                                    <div class="membership-info">
+                                        <strong>Life Member</strong>
+                                    </div>
+                                </div>
+                                
+                                <div class="membership-row">
+                                    <div class="membership-info">
+                                        <strong>Associate Life</strong><br>
+                                        <small>(spouse or partner of Life or Senior Life)</small>
+                                    </div>
+                                </div>
+                                
+                                <div class="membership-row">
+                                    <div class="membership-info">
+                                        <strong>Senior Life (over 65)</strong>
+                                    </div>
+                                </div>
+                                
+                                <div class="membership-row">
+                                    <div class="membership-info">
+                                        <strong>Associate Senior Life (over 65)</strong><br>
+                                        <small>(spouse or partner of Life or Senior Life)</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="membership-price">£25</div>
+                                <div class="membership-price">£20</div>
+                                <div class="membership-price">£15</div>
+                                <div class="membership-price">£10</div>
+                                <div class="membership-price">£5</div>
+                                <div class="membership-price">£500</div>
+                                <div class="membership-price">£250</div>
+                                <div class="membership-price">£200</div>
+                                <div class="membership-price">£400</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Apply Online Section -->
+                    <div class="apply-online-section">
+                        <h3 class="section-title">Apply On-line</h3>
+                        <p class="section-description">Please enter membership for each person in the family then "Add to cart" using the button below, you must then checkout to complete the purchase.</p>
+                        
+                        <div class="renewal-checkbox">
+                            <label>
+                                <input type="checkbox" id="renewalCheckbox">
+                                Please tick the box if this is a renewal of membership
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Members Table Section -->
+                    <div class="members-table-section">
+                        <div class="table-responsive">
+                            <table class="table members-table" id="membersTable">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Initials</th>
+                                        <th>Forename</th>
+                                        <th>Surname</th>
+                                        <th>Date of Birth</th>
+                                        <th>Membership Class</th>
+                                        <th>Membership Code</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="member-row">
+                                        <td><input type="text" class="form-control" placeholder=""></td>
+                                        <td><input type="text" class="form-control" placeholder=""></td>
+                                        <td><input type="text" class="form-control" placeholder=""></td>
+                                        <td><input type="text" class="form-control" placeholder=""></td>
+                                        <td><input type="date" class="form-control" placeholder=""></td>
+                                        <td>
+                                            <select class="form-control membership-class">
+                                                <option value="">Select...</option>
+                                                <option value="25">Ordinary Member - £25</option>
+                                                <option value="20">Senior (over 65) - £20</option>
+                                                <option value="15">Junior (under 21) - £15</option>
+                                                <option value="10">Associate - £10</option>
+                                                <option value="5">Associate Junior (under 21) - £5</option>
+                                                <option value="500">Life Member - £500</option>
+                                                <option value="250">Associate Life - £250</option>
+                                                <option value="200">Senior Life (over 65) - £200</option>
+                                                <option value="400">Associate Senior Life (over 65) - £400</option>
+                                            </select>
+                                        </td>
+                                        <td><input type="text" class="form-control" placeholder=""></td>
+                                        <td><input type="text" class="form-control amount-field" placeholder="" readonly></td>
+                                    </tr>
+                                    <tr class="member-row">
+                                        <td><input type="text" class="form-control" placeholder=""></td>
+                                        <td><input type="text" class="form-control" placeholder=""></td>
+                                        <td><input type="text" class="form-control" placeholder=""></td>
+                                        <td><input type="text" class="form-control" placeholder=""></td>
+                                        <td><input type="date" class="form-control" placeholder=""></td>
+                                        <td>
+                                            <select class="form-control membership-class">
+                                                <option value="">Select...</option>
+                                                <option value="25">Ordinary Member - £25</option>
+                                                <option value="20">Senior (over 65) - £20</option>
+                                                <option value="15">Junior (under 21) - £15</option>
+                                                <option value="10">Associate - £10</option>
+                                                <option value="5">Associate Junior (under 21) - £5</option>
+                                                <option value="500">Life Member - £500</option>
+                                                <option value="250">Associate Life - £250</option>
+                                                <option value="200">Senior Life (over 65) - £200</option>
+                                                <option value="400">Associate Senior Life (over 65) - £400</option>
+                                            </select>
+                                        </td>
+                                        <td><input type="text" class="form-control" placeholder=""></td>
+                                        <td><input type="text" class="form-control amount-field" placeholder="" readonly></td>
+                                    </tr>
+                                    <tr class="member-row">
+                                        <td><input type="text" class="form-control" placeholder=""></td>
+                                        <td><input type="text" class="form-control" placeholder=""></td>
+                                        <td><input type="text" class="form-control" placeholder=""></td>
+                                        <td><input type="text" class="form-control" placeholder=""></td>
+                                        <td><input type="date" class="form-control" placeholder=""></td>
+                                        <td>
+                                            <select class="form-control membership-class">
+                                                <option value="">Select...</option>
+                                                <option value="25">Ordinary Member - £25</option>
+                                                <option value="20">Senior (over 65) - £20</option>
+                                                <option value="15">Junior (under 21) - £15</option>
+                                                <option value="10">Associate - £10</option>
+                                                <option value="5">Associate Junior (under 21) - £5</option>
+                                                <option value="500">Life Member - £500</option>
+                                                <option value="250">Associate Life - £250</option>
+                                                <option value="200">Senior Life (over 65) - £200</option>
+                                                <option value="400">Associate Senior Life (over 65) - £400</option>
+                                            </select>
+                                        </td>
+                                        <td><input type="text" class="form-control" placeholder=""></td>
+                                        <td><input type="text" class="form-control amount-field" placeholder="" readonly></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <!-- Add Member Button and Donation Section -->
+                        <div class="table-footer-section">
+                            <div class="add-member-container">
+                                <button type="button" class="btn btn-add-member" id="addMemberBtn">+ Add Another Member</button>
+                            </div>
+                            <div class="donation-row">
+                                        <label>Donation (See note below) £</label>
+                                        <input type="number" class="form-control donation-input" id="donationAmount" placeholder="0.00" step="0.01" min="0">
+                                    </div>
+                                    <div class="total-row">
+                                        <label><strong>TOTAL AMOUNT £</strong></label>
+                                        <input type="text" class="form-control total-input" id="totalAmount" placeholder="0.00" readonly>
+                                    </div>
+                        </div>
+                        <div class="note-donation-container">
+                                <div class="note-section">
+                                    <h4 class="note-title">Note re Donations</h4>
+                                    <p class="note-text">Donations to Talperston Railway Society Ltd. under Gift Aid enable TRS, in addition to recover the Tax If you want your donation to be transferred to TRS, please sign below. By signing you confirm that you are a UK taxpayer and understand that if you pay less Income Tax and/or Capital gains tax in each tax year (6 April to 5 April) that is at least equal to the amount of Tax that Charitable or Community Amateur Sports Clubs (CASC) that tax year. (Other taxes such as VAT and Council Tax do not qualify.) The owner of the credit/debit card being used to pay must be the person making the donation.</p>
+                                    <p class="note-subscription"><strong>Note: Subscription cannot be gift aided.</strong></p>
+                                </div>
+                                
+                                <div class="donation-total-container">
+                                    
+                                    <div class="gift-aid-container">
+                                        <label class="gift-aid-label">
+                                            <input type="checkbox" id="giftAidCheckbox">
+                                            Gift aid my donation
+                                        </label>
+                                    </div>
+                                    <div class="cart-button-container">
+                                        <button type="button" class="btn btn-add-cart">Add to Cart</button>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    
+                    
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        // Add Member functionality
+        document.getElementById('addMemberBtn').addEventListener('click', function() {
+            const tbody = document.querySelector('#membersTable tbody');
+            const newRow = document.querySelector('.member-row').cloneNode(true);
+            
+            // Clear all input values
+            newRow.querySelectorAll('input, select').forEach(input => {
+                if (input.type !== 'date') {
+                    input.value = '';
+                }
+            });
+            
+            tbody.appendChild(newRow);
+            attachMembershipClassListener(newRow);
+        });
+        
+        // Calculate amount based on membership class
+        function attachMembershipClassListener(row) {
+            const select = row.querySelector('.membership-class');
+            const amountField = row.querySelector('.amount-field');
+            
+            select.addEventListener('change', function() {
+                amountField.value = this.value ? '£' + this.value : '';
+                calculateTotal();
+            });
+        }
+        
+        // Attach listener to initial row
+        document.querySelectorAll('.member-row').forEach(row => {
+            attachMembershipClassListener(row);
+        });
+        
+        // Calculate total amount
+        function calculateTotal() {
+            let total = 0;
+            
+            // Sum membership amounts
+            document.querySelectorAll('.membership-class').forEach(select => {
+                if (select.value) {
+                    total += parseFloat(select.value);
+                }
+            });
+            
+            // Add donation
+            const donation = parseFloat(document.getElementById('donationAmount').value) || 0;
+            total += donation;
+            
+            document.getElementById('totalAmount').value = total.toFixed(2);
+        }
+        
+        // Update total when donation changes
+        document.getElementById('donationAmount').addEventListener('input', calculateTotal);
+        
+        // Add to Cart functionality
+        document.querySelector('.btn-add-cart').addEventListener('click', function() {
+            const total = document.getElementById('totalAmount').value;
+            if (parseFloat(total) > 0) {
+                alert('Total Amount: £' + total + '\nProceeding to checkout...');
+                // Add your cart logic here
+            } else {
+                alert('Please select at least one membership class.');
+            }
+        });
+    </script>
+</body>
+</html>

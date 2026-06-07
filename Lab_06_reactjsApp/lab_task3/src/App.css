@@ -1,0 +1,291 @@
+.App {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.actions-container {
+  min-height: 100vh;
+  width: 100%;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  transition: background-color 0.5s ease;
+}
+
+.actions-content {
+  max-width: 700px;
+  width: 100%;
+}
+
+/* Title Styling */
+.title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 40px 0;
+  transition: color 0.3s ease;
+  cursor: pointer;
+  padding: 20px;
+  border-radius: 10px;
+  user-select: none;
+}
+
+.title.hovering {
+  text-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+  transform: scale(1.02);
+}
+
+/* Buttons Section */
+.buttons-section {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  margin-bottom: 30px;
+}
+
+.buttons-section h2 {
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 25px;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.action-btn {
+  padding: 14px 28px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.action-btn:active {
+  transform: translateY(0);
+}
+
+/* Message Button */
+.btn-message {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.btn-message:hover {
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+/* Color Button */
+.btn-color {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.btn-color:hover {
+  background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%);
+}
+
+/* Alert Button */
+.btn-alert {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.btn-alert:hover {
+  background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+}
+
+.hint-text {
+  text-align: center;
+  color: #666;
+  font-size: 0.9rem;
+  font-style: italic;
+  margin: 0;
+}
+
+/* Message Section */
+.message-section {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  margin-bottom: 30px;
+  border-left: 5px solid #667eea;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.message-section h3 {
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+}
+
+.message-text {
+  color: #555;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 15px 0;
+  padding: 15px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.close-btn {
+  background-color: #ff6b6b;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+.close-btn:hover {
+  background-color: #ff5252;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+}
+
+/* Info Section */
+.info-section {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+.info-section h3 {
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+}
+
+.events-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.events-list > li {
+  padding: 15px;
+  margin-bottom: 15px;
+  background: #f9f9f9;
+  border-left: 4px solid #667eea;
+  border-radius: 6px;
+  color: #555;
+  line-height: 1.8;
+}
+
+.events-list strong {
+  color: #333;
+  font-weight: 600;
+}
+
+.events-list ul {
+  margin-top: 10px;
+  margin-bottom: 0;
+  padding-left: 20px;
+}
+
+.events-list li li {
+  padding: 8px 0;
+  background: transparent;
+  border-left: none;
+  margin-bottom: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .actions-container {
+    padding: 20px 10px;
+  }
+
+  .title {
+    font-size: 1.8rem;
+    padding: 15px;
+    margin-bottom: 30px;
+  }
+
+  .buttons-section,
+  .message-section,
+  .info-section {
+    padding: 20px;
+  }
+
+  .buttons-section h2 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+
+  .button-group {
+    gap: 12px;
+  }
+
+  .action-btn {
+    padding: 12px 20px;
+    font-size: 0.9rem;
+  }
+
+  .message-section h3,
+  .info-section h3 {
+    font-size: 1rem;
+  }
+
+  .message-text {
+    font-size: 0.95rem;
+  }
+
+  .events-list > li {
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+}
+
+@media (max-width: 400px) {
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .buttons-section h2,
+  .message-section h3,
+  .info-section h3 {
+    font-size: 1.1rem;
+  }
+
+  .action-btn {
+    padding: 10px 15px;
+    font-size: 0.85rem;
+  }
+}

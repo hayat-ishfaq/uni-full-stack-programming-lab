@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Registration Form</h1>
+            <p>Please fill in all fields correctly</p>
+        </header>
+
+        <form id="registration-form" onsubmit="return handleSubmit(event)">
+            <div class="form-group">
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" class="form-input" placeholder="Enter your full name">
+                <span class="error-message" id="name-error"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address:</label>
+                <input type="text" id="email" class="form-input" placeholder="Enter your email">
+                <span class="error-message" id="email-error"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" id="age" class="form-input" placeholder="Enter your age">
+                <span class="error-message" id="age-error"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" class="form-input" placeholder="Enter password (min 6 characters)">
+                <span class="error-message" id="password-error"></span>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="btn submit-btn">Register</button>
+                <button type="button" class="btn reset-btn" onclick="resetForm()">Reset</button>
+            </div>
+        </form>
+
+        <div id="success-message" class="success-message">
+            <h2>✓ Registration Successful!</h2>
+            <p id="success-details"></p>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
